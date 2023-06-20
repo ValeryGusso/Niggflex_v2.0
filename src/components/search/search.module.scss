@@ -1,0 +1,30 @@
+.desktop {
+	@apply portrait:hidden flex items-center gap-4;
+	& svg {
+		@apply w-8 h-8 transition;
+	}
+	&:hover svg {
+		@apply -rotate-45 scale-150 color-active cursor-pointer;
+	}
+}
+.desktop__input {
+	@apply w-96 h-8 pl-2 rounded-xl text-neutral-900 outline-none bg-slate-400/50 transition;
+	&:focus {
+		@apply bg-neutral-300;
+	}
+}
+.mobile {
+	@apply landscape:hidden w-full flex flex-col pt-36 justify-center items-center gap-4;
+}
+.mobile__title {
+	@apply flex items-center gap-4 text-4xl italic font-black;
+	& svg {
+		@apply w-12 h-12;
+	}
+}
+.mobile__input {
+	@apply w-2/3 h-12 rounded-2xl pl-2 text-xl text-neutral-900 outline-none bg-neutral-300/40 transition;
+	&:focus {
+		@apply bg-neutral-300;
+	}
+}

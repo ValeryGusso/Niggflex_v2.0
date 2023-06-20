@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply text-neutral-200 scrollbar-track-zinc-700 scrollbar-corner-red-600 scrollbar-thumb-lime-600;
+}
+
+body {
+	@apply bg-neutral-800;
+}
+
+header {
+	@apply portrait:h-12 landscape:h-16;
+}
+
+main {
+	@apply relative flex w-full landscape:min-h-[calc(100vh-64px)] portrait:min-h-[calc(100vh-48px)] overflow-x-hidden;
+}

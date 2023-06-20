@@ -1,0 +1,19 @@
+.container {
+	@apply w-40 flex items-center justify-center py-2 gap-4 cursor-pointer rounded-xl border-4 border-transparent select-none transition;
+	& p {
+		@apply text-xl italic tracking-widest transition;
+	}
+	& img {
+		@apply w-8 h-8 transition;
+	}
+	&:hover {
+		@apply bg-neutral-700/50;
+		border-color: var(--color);
+	}
+	&:hover p {
+		color: var(--color);
+	}
+	&:hover img {
+		@apply grayscale-0 text-amber-400;
+	}
+}

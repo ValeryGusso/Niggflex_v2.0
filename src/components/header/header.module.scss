@@ -1,0 +1,29 @@
+/* GENERAL */
+.logo {
+	@apply h-full w-fit select-none;
+}
+
+/* DESKTOP */
+.desctop {
+	@apply portrait:hidden h-full px-4 flex justify-between;
+}
+.desktop__menu {
+	@apply relative flex items-center gap-8;
+	& > svg {
+		@apply w-10 h-10 cursor-pointer transition;
+		&:hover {
+			@apply color-active;
+		}
+	}
+}
+.desktop__menu__container {
+	@apply absolute top-full left-0;
+}
+
+/* MOBILE */
+.mobile {
+	@apply landscape:hidden relative h-full flex justify-around items-center;
+}
+.mobile__icon {
+	@apply w-8 h-8 color-active;
+}

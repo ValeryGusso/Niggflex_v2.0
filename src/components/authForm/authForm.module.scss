@@ -1,0 +1,45 @@
+.container {
+	@apply flex flex-col items-center justify-center gap-2;
+	& form {
+		@apply flex flex-col items-center landscape:gap-6 portrait:gap-4;
+		& .inputs {
+			@apply flex flex-col landscape:gap-12 portrait:gap-10;
+		}
+	}
+}
+.links {
+	@apply flex flex-col gap-2 portrait:text-sm text-center select-none;
+	& .link {
+		@apply relative w-fit overflow-x-hidden underline transition;
+		&:hover {
+			@apply no-underline;
+		}
+		&::after {
+			content: '';
+			@apply absolute top-full left-0 w-full border-2 border-transparent transition -translate-x-full blur-sm;
+			&:hover {
+				@apply translate-x-0 border-sky-400;
+			}
+		}
+	}
+}
+.division {
+	@apply relative w-fit landscape:text-xl portrait:text-base italic text-opacity-50 cursor-default;
+	&::before {
+		content: '';
+		@apply absolute w-32 top-1/2 right-0 blur-sm border-2 bg-neutral-600/50 -translate-x-12;
+	}
+	&::after {
+		content: '';
+		@apply absolute w-32 top-1/2 left-0 blur-sm border-2 bg-neutral-600/50 translate-x-12;
+	}
+}
+.socials {
+	@apply flex flex-col items-center justify-center gap-y-4;
+	& > p {
+		@apply landscape:text-xl portrait:text-sm italic select-none;
+	}
+	& > div {
+		@apply flex gap-4;
+	}
+}

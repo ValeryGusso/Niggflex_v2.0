@@ -1,0 +1,40 @@
+.container {
+	@apply relative landscape:w-80 landscape:h-12 portrait:w-60 h-10;
+	& input {
+		@apply w-full h-full landscape:pl-8 landscape:text-2xl portrait:pl-6 portrait:text-lg color-light bg-transparent border-b-2 border-b-slate-200 landscape:rounded-lg portrait:rounded outline-none transition;
+		& .password {
+			@apply landscape:pr-10 portrait:pr-6;
+		}
+		&:focus {
+			@apply border-b-4 border-b-sky-300;
+		}
+		&:focus ~ p {
+			@apply focus;
+			& span {
+				@apply color-active;
+			}
+		}
+		&:focus ~ .icon {
+			@apply color-active;
+		}
+	}
+}
+.placeholder {
+	@apply absolute top-2 landscape:left-12 portrait:left-6 select-none transition;
+	& span {
+		@apply relative landscape:text-2xl portrait:text-lg color-light transition;
+		transition-delay: var(--delay) !important;
+	}
+}
+.icon {
+	@apply absolute landscape:w-6 landscape:h-6 landscape:top-3 portrait:w-4 portrait:h-4 portrait:top-4 color-light transition;
+}
+.eye {
+	@apply right-2 cursor-pointer;
+}
+.focus {
+	@apply -translate-x-10 -translate-y-8 tracking-widest;
+	& span {
+		@apply text-lg;
+	}
+}

@@ -1,0 +1,11 @@
+.container {
+	@apply flex gap-4 cursor-pointer;
+	& img {
+		@apply w-8 h-8 grayscale transition;
+	}
+	&:hover {
+		& img {
+			@apply grayscale-0;
+		}
+	}
+}

@@ -1,0 +1,53 @@
+.container {
+	@apply h-full mr-12 flex items-center gap-2 cursor-pointer transition;
+	& a {
+		@apply flex items-center gap-2;
+	}
+	& svg {
+		@apply w-10 h-10;
+	}
+	& p {
+		@apply text-xl;
+	}
+	&:hover * {
+		@apply color-active;
+		animation: tremor 0.5s linear 1;
+	}
+}
+
+@keyframes tremor {
+	11% {
+		transform: translateX(0);
+	}
+
+	22% {
+		transform: translateX(-12px);
+	}
+
+	33% {
+		transform: translateX(0);
+	}
+
+	44% {
+		transform: translateX(12px);
+	}
+
+	55% {
+		transform: translateX(0);
+	}
+
+	66% {
+		transform: translateX(-6px);
+	}
+
+	77% {
+		transform: translateX(0);
+	}
+
+	88% {
+		transform: translateX(6px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}

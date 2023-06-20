@@ -1,0 +1,42 @@
+/* Desctop */
+.menu__desktop {
+	@apply w-[250px] flex flex-col gap-1 select-none z-20;
+}
+.menu__desktop__item {
+	@apply relative w-full border-2 rounded-lg;
+}
+.menu__desktop__item__link {
+	@apply w-full h-full flex py-2 pl-4 items-center justify-start gap-2 text-2xl cursor-pointer transition;
+	&:hover {
+		@apply color-active;
+	}
+	& svg {
+		@apply transition;
+	}
+	&:hover svg {
+		@apply color-active;
+	}
+}
+.menu__desktop__item__arrow {
+	@apply w-3 h-3 rotate-90 transition;
+}
+.menu__desktop__categories {
+	@apply menu__desktop absolute left-full -top-0.5;
+}
+
+/*  Mobile */
+.menu__mobile {
+	@apply w-full flex flex-col items-start justify-start gap-1;
+}
+.menu__mobile__item {
+	@apply w-full py-3;
+}
+.menu__mobile__item__link {
+	@apply w-full h-full flex items-center justify-start pl-4 text-2xl gap-2 cursor-pointer transition;
+}
+.menu__mobile__item__icon {
+	@apply h-8 w-8;
+}
+.menu__mobile__item__arrow {
+	@apply w-3 h-3 transition;
+}

@@ -1,0 +1,18 @@
+.container {
+	@apply flex portrait:flex-col landscape:px-6 portrait:px-4 py-2 portrait:gap-y-2;
+}
+.logo {
+	@apply portrait:w-full landscape:w-72 flex flex-col items-center justify-center text-center cursor-default;
+	& img {
+		@apply w-fit h-10;
+	}
+}
+.description {
+	@apply flex flex-col items-center h-full px-6 text-center portrait:border-y-2 portrait:py-4 cursor-default;
+}
+.contacts {
+	@apply portrait:w-full w-[500px] landscape:h-full portrait:h-16 items-center flex gap-4 cursor-default;
+	& > div {
+		@apply flex flex-col portrait:flex-1 h-full gap-4;
+	}
+}

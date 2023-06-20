@@ -1,0 +1,42 @@
+.container {
+	@apply relative h-fit w-fit flex items-center justify-center px-0 border-b-2 select-none transition;
+	&:hover {
+		animation: jump 0.6s linear 1;
+	}
+	& .button {
+		@apply relative landscape:px-8 landscape:py-2 landscape:text-2xl portrait:px-4 portrait:py-1 portrait:text-lg;
+	}
+	& .arrow {
+		@apply absolute w-8 h-8 transition;
+		transition-delay: 0.6s;
+	}
+	& .arrow:nth-child(odd) {
+		@apply -left-4 -translate-x-24 opacity-0;
+	}
+	& .arrow:nth-child(even) {
+		@apply -right-4 translate-x-24 opacity-0;
+	}
+	&:hover .arrow {
+		@apply translate-x-0 opacity-100;
+	}
+}
+@keyframes jump {
+	16% {
+		transform: translateY(-6px);
+	}
+	33% {
+		transform: translateY(0px);
+	}
+	49% {
+		transform: translateY(-4px);
+	}
+	65% {
+		transform: translateY(0px);
+	}
+	83% {
+		transform: translateY(-2px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}

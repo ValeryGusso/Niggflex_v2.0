@@ -1,0 +1,4 @@
+.modal {
+	@apply fixed inset-0 top-12 items-start flex justify-start overflow-y-auto bg-neutral-950/75 z-50 transition;
+	bottom: var(--bottom);
+}
