@@ -30,6 +30,7 @@ const SafeImage: FC<SafeImageProps> = ({ src, defaultImg, description, className
 			width={width}
 			height={height}
 			draggable={draggable}
+			priority
 		/>
 	)
 }

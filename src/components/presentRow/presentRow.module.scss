@@ -1,34 +1,12 @@
 .container {
-	@apply w-full flex;
-	// transform: translateX(-956px);
-	// animation: rightflow 10s linear infinite;
-	&:nth-child(2) {
-		// animation: rightflow 180s linear infinite;
-	}
-}
-
-@keyframes leftflow {
-	0% {
-		transform: translateX(0px);
-	}
-
-	100% {
-		transform: translateX(-3824px);
-	}
-}
-
-@keyframes rightflow {
-	0% {
-		transform: translateX(960px);
-	}
-	// 25% {
-	// 	transform: translateX(3824px);
-	// }
-
-	// 50% {
-	// 	transform: translateX(0px);
-	// }
-	100% {
-		transform: translateX(-960px);
+	@apply flex items-center justify-center gap-2 rounded-xl;
+	& li {
+		@apply relative w-32 flex-none rounded-xl overflow-hidden;
+		& img {
+			@apply w-fit h-fit rounded-lg transition;
+			&:hover {
+				@apply scale-125;
+			}
+		}
 	}
 }

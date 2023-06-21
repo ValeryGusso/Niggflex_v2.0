@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import cls from './menu.module.scss'
 
 import Link from 'next/link'
@@ -21,6 +21,22 @@ const Menu: IMenu = () => {
 
 Menu.Desktop = function Desktop({ onClose }) {
 	const [showCateroy, categoryToggle] = useToggle(false)
+	const id = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+	function mouseLeave() {
+		id.current = setTimeout(() => {
+			onClose()
+		}, 2000)
+	}
+
+	function mouseEnter() {
+		categoryToggle(true)
+		if (id.current) {
+			clearTimeout(id.current)
+			id.current = null
+		}
+	}
+
 	function renderCategories(list: MenuListItem[]) {
 		return (
 			<ul className={cls.menu__desktop__categories} onMouseLeave={() => categoryToggle(false)}>
@@ -37,11 +53,11 @@ Menu.Desktop = function Desktop({ onClose }) {
 	}
 
 	return (
-		<ul className={cls.menu__desktop}>
+		<ul className={cls.menu__desktop} onMouseLeave={mouseLeave} onMouseEnter={mouseEnter}>
 			{menuList.map(item => (
 				<li key={item.path} className={cls.menu__desktop__item}>
 					{item.children ? (
-						<p className={cls.menu__desktop__item__link} onMouseEnter={() => categoryToggle(true)}>
+						<p className={cls.menu__desktop__item__link} onMouseEnter={mouseEnter}>
 							{item.icon({ className: cls.menu__desktop__item__icon })}
 							{item.title}
 							<BsTriangleFill className={cls.menu__desktop__item__arrow} />

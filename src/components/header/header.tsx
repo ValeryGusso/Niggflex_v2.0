@@ -85,7 +85,14 @@ const Header: FC = () => {
 			<div className={cls.desctop}>
 				<div className={cls.desktop__menu}>
 					{renderDesktopButton()}
-					<Image src={logo} alt="logo" className={cls.logo} draggable={false} onClick={() => router.push('/')} />
+					<Image
+						src={logo}
+						alt="logo"
+						className={cls.logo}
+						draggable={false}
+						onClick={() => router.push('/')}
+						priority
+					/>
 					{renderDesktopMenuButton()}
 				</div>
 				<Search />

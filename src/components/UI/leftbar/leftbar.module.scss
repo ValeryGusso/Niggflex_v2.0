@@ -1,5 +1,5 @@
 .bar {
-	@apply landscape:absolute landscape:top-0 landscape:min-h-full portrait:min-h-[calc(100vh-48px)] landscape:w-20 portrait:w-6 bg-neutral-100/5 cursor-pointer z-50 transition;
+	@apply landscape:absolute landscape:top-0 landscape:min-h-full portrait:min-h-[calc(100vh-48px)] landscape:w-20 portrait:w-6 bg-neutral-100/5 cursor-pointer z-40 transition;
 	&:hover {
 		@apply bg-neutral-100/10;
 	}

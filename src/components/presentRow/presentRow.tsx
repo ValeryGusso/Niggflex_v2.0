@@ -1,31 +1,47 @@
 'use client'
-import { FC } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import cls from './presentRow.module.scss'
 import { ShortMovie } from '@/kinopoisk/autotypes'
 import SafeImage from '../UI/safeImage/safeImage'
 import defaultImg from '@/assets/img/noimage.png'
 import Image from 'next/image'
+import { useToggle } from '@/hooks/useToggle'
 
 interface PresentRowProps {
 	movies: ShortMovie[]
 }
 
 const PresentRow: FC<PresentRowProps> = ({ movies }) => {
+	// const [showDescriptions, showDescriptionsToggle] = useToggle(false)
 	const renderData = [...movies, ...movies]
-	console.log(renderData.length)
+	const ulRef = useRef<HTMLUListElement>(null)
+
+	// useEffect(() => {
+	// 	console.log(ulRef.current?.clientWidth)
+	// }, [])
 	return (
-		<ul className={cls.container}>
+		<ul ref={ulRef} className={cls.container}>
 			{renderData.map((movie, i) => (
-				<li key={i} className="relative w-2/12 h-fit flex items-center justify-center overflow-hidden">
+				<li
+					key={i}
+					// onMouseEnter={() => showDescriptionsToggle()}
+					// onMouseLeave={() => showDescriptionsToggle()}
+				>
 					<SafeImage
 						src={movie.poster.previewUrl!}
 						defaultImg={defaultImg}
 						description={movie.enName || 'movie'}
 						draggable={false}
-						width={112}
-						height={176}
-						className="rounded-xl"
+						width={360}
+						height={533}
 					/>
+					{/* {showDescriptions && (
+						<div className="absolute z-50">
+							<h2>{movie.name && movie.enName}</h2>
+							<h2>{movie.year}</h2>
+							<p>{movie.shortDescription}</p>
+						</div>
+					)} */}
 				</li>
 			))}
 		</ul>

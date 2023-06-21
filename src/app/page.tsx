@@ -11,12 +11,23 @@ const Home: FC = async () => {
 		posterUrl: '!null',
 		limit: 45,
 	})
+
+	// const trailers = await kinopoiskDev.getMovie({
+	// 	year: `${new Date().getFullYear() - 1}-${new Date().getFullYear()}`,
+	// 	ratingKp: '7-10',
+	// 	videosTrailersUrl: '!null',
+	// 	selectFields: 'videos',
+	// })
+	// // @ts-ignore
+	// trailers.data?.docs.map(film => film.videos.trailers.map(el => console.log(el.url)))
 	return (
 		<div className={cls.container}>
 			Добро пожаловать на Niggflex, возможно, самый лучший сайт о кино во Вселенной!
-			<PresentRow movies={items.data?.docs.splice(0, 15)!} />
-			{/* <PresentRow movies={items.data?.docs.splice(0, 15)!} />
-			<PresentRow movies={items.data?.docs.splice(0, 15)!} /> */}
+			<div className={cls.rows}>
+				<PresentRow movies={items.data?.docs.splice(0, 15)!} />
+				<PresentRow movies={items.data?.docs.splice(0, 15)!} />
+				<PresentRow movies={items.data?.docs.splice(0, 15)!} />
+			</div>
 		</div>
 	)
 }

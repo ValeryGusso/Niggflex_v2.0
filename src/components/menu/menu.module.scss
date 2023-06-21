@@ -1,9 +1,9 @@
 /* Desctop */
 .menu__desktop {
-	@apply w-[250px] flex flex-col gap-1 select-none z-20;
+	@apply w-[250px] flex flex-col gap-1 select-none;
 }
 .menu__desktop__item {
-	@apply relative w-full border-2 rounded-lg;
+	@apply relative w-full rounded-lg bg-slate-600 z-50;
 }
 .menu__desktop__item__link {
 	@apply w-full h-full flex py-2 pl-4 items-center justify-start gap-2 text-2xl cursor-pointer transition;
@@ -21,7 +21,7 @@
 	@apply w-3 h-3 rotate-90 transition;
 }
 .menu__desktop__categories {
-	@apply menu__desktop absolute left-full -top-0.5;
+	@apply menu__desktop absolute left-full top-0;
 }
 
 /*  Mobile */
