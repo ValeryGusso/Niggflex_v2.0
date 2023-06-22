@@ -2,6 +2,7 @@ import { FC } from 'react'
 import cls from './home.module.scss'
 import kinopoiskDev from '@/utils/kinopoiskDev'
 import PresentRow from '@/components/presentRow/presentRow'
+import { it } from 'node:test'
 
 const Home: FC = async () => {
 	const items = await kinopoiskDev.getMovie({
