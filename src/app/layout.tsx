@@ -4,7 +4,7 @@ import { Ubuntu } from 'next/font/google'
 import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
 import Leftbar from '@/components/UI/leftbar/leftbar'
-import { KinopoiskDev } from '@/kinopoisk'
+import { KinopoiskDev } from '@/kinopoiskDev'
 
 const ubuntu = Ubuntu({
 	subsets: ['latin', 'cyrillic', 'cyrillic-ext'],

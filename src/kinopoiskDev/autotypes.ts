@@ -23,7 +23,8 @@ export interface FullMovie {
 	videos: VideoTypes
 	genres: ItemName[]
 	countries: ItemName[]
-	persons: Person[]
+	// persons: Person[]
+	persons: ShortPerson[]
 	reviewInfo: ReviewInfo
 	seasonsInfo: SeasonsInfo[]
 	budget: Budget
@@ -345,6 +346,38 @@ export interface MovieInPerson {
 	enProfession: string | null
 }
 
+export interface ShortPerson {
+	id: number
+	photo: string | null
+	name: string | null
+	enName: string | null
+	description: string | null
+	profession: ProfessionTypeRu | null
+	enProfession: ProfessionTypeEn | null
+}
+
+export type ProfessionTypeRu =
+	| 'актеры'
+	| 'композиторы'
+	| 'художники'
+	| 'режиссеры'
+	| 'монтажеры'
+	| 'операторы'
+	| 'продюсеры'
+	| 'актеры дубляжа'
+	| 'редакторы'
+
+export type ProfessionTypeEn =
+	| 'actor'
+	| 'composer'
+	| 'designer'
+	| 'director'
+	| 'editor'
+	| 'operator'
+	| 'producer'
+	| 'voice_actor'
+	| 'writer'
+
 export interface Person {
 	id: number | null
 	name: string | null
@@ -360,6 +393,7 @@ export interface Person {
 	spouses: Spouses
 	countAwards: number | null
 	profession: Profession[]
+	// profession: ShortPerson[]
 	facts: FactInPerson[]
 	movies: MovieInPerson[]
 }

@@ -1,7 +1,7 @@
 'use client'
 import { FC, useEffect, useRef } from 'react'
 import cls from './presentRow.module.scss'
-import { ShortMovie } from '@/kinopoisk/autotypes'
+import { ShortMovie } from '@/kinopoiskDev/autotypes'
 import SafeImage from '../UI/safeImage/safeImage'
 import defaultImg from '@/assets/img/noimage.png'
 import Image from 'next/image'

@@ -1,20 +1,27 @@
 'use client'
 import { FC } from 'react'
 import Flickity from 'react-flickity-component'
-import cls from './sliderRow.module.scss'
+import Image from 'next/image'
+import { ShortStaf } from '@/kinopoiskUnofficial/@types/staff'
+
+interface SliderRowProps {
+	title: string
+	showRole: boolean
+	persons: ShortStaf[]
+}
 
 const flickityOptions = {
-	initialIndex: 1,
-	wrapAround: true,
+	initialIndex: 0,
+	// wrapAround: true,
 	cellAlign: 'left',
 	dragThreshold: 5,
 	selectedAttraction: 0.1,
 }
 
-const SliderRow: FC = () => {
+const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
 	return (
 		<div className="w-full bg-slate-500">
-			<h1>АКТЁРЫ</h1>
+			<h1>{title}</h1>
 			<Flickity
 				className="carousel gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab"
 				elementType={'div'}
@@ -23,17 +30,13 @@ const SliderRow: FC = () => {
 				reloadOnUpdate
 				static
 			>
-				{Array(50)
-					.fill(null)
-					.map((_, i) => (
-						<>
-							<img
-								className="mx-6 w-24"
-								src="https://imglarger.com/Images/before-after/ai-image-enlarger-1-after-2.jpg"
-							/>
-							<h1>{i}</h1>
-						</>
-					))}
+				{persons.map(person => (
+					<div className="w-20 ">
+						<h2>{person.nameRu || person.nameEn || 'Нет данных'}</h2>
+						<Image src={person.posterUrl || ''} alt={`photo ${person.nameEn}`} width={300} height={400} />
+						{showRole && <p>{person.professionText}</p>}
+					</div>
+				))}
 			</Flickity>
 		</div>
 	)
