@@ -19,3 +19,17 @@ export function printTime(value?: number | null) {
 
 	return `${value}мин. (${Math.floor(value / 60)}ч. ${value % 60}мин.)`
 }
+
+export function printProfessin(value?: string) {
+	return value ? value.replace(/\w*(ы|и$)/i, '') : 'Нет данных'
+}
+
+export function cut(str: string | null, length: number) {
+	if (!str) return 'Нет данных'
+	console.log(str)
+	if (str.length < length) {
+		return str
+	}
+
+	return str.match(new RegExp(`(\\w|\\W){${length}}`))![0] + '...'
+}

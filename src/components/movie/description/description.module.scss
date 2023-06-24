@@ -1,0 +1,30 @@
+.info {
+	@apply w-1/2 flex flex-col;
+}
+.name {
+	@apply flex flex-col border-b-2 border-dotted border-neutral-300 border-opacity-50;
+	& > h1 {
+		@apply text-4xl;
+	}
+}
+.description {
+	@apply w-fit flex flex-col;
+	& > h1 {
+		@apply text-3xl italic font-black mt-2 mb-4;
+	}
+	& > h2 {
+		@apply text-2xl italic font-black mt-2 mb-4;
+	}
+	& > div {
+		@apply flex gap-4;
+	}
+}
+.row {
+	@apply w-full py-1 pr-2 border-b-2 border-dotted border-neutral-300 border-opacity-25;
+	& > p:nth-child(1) {
+		@apply w-44;
+	}
+	& > p:nth-child(2) {
+		@apply w-fit;
+	}
+}

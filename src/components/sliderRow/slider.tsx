@@ -3,6 +3,7 @@ import { FC } from 'react'
 import Flickity from 'react-flickity-component'
 import Image from 'next/image'
 import { ShortStaf } from '@/kinopoiskUnofficial/@types/staff'
+import { printProfessin } from '@/utils/print'
 
 interface SliderRowProps {
 	title: string
@@ -20,7 +21,7 @@ const flickityOptions = {
 
 const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
 	return (
-		<div className="w-full bg-slate-500">
+		<div className="w-full">
 			<h1>{title}</h1>
 			<Flickity
 				className="carousel gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab"
@@ -30,11 +31,11 @@ const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
 				reloadOnUpdate
 				static
 			>
-				{persons.map(person => (
-					<div className="w-20 ">
-						<h2>{person.nameRu || person.nameEn || 'Нет данных'}</h2>
+				{persons.map((person, i) => (
+					<div className="w-24 flex flex-col items-center justify-center mx-2" key={i}>
+						<h2 className="h-16 break-normal">{person.nameRu || person.nameEn || 'Нет данных'}</h2>
 						<Image src={person.posterUrl || ''} alt={`photo ${person.nameEn}`} width={300} height={400} />
-						{showRole && <p>{person.professionText}</p>}
+						{showRole && <p>{printProfessin(person.professionText)}</p>}
 					</div>
 				))}
 			</Flickity>

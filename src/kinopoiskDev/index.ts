@@ -24,7 +24,7 @@ type MultiResponse<T> = {
 	}
 }
 
-export class KinopoiskDev {
+class KinopoiskDev {
 	private readonly domen = 'https://api.kinopoisk.dev/'
 	private readonly token
 
@@ -113,3 +113,5 @@ export class KinopoiskDev {
 		return res
 	}
 }
+
+export default new KinopoiskDev(process.env.KINOPOISKDEV_TOKEN!)

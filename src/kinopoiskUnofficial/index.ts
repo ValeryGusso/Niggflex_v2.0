@@ -1,6 +1,10 @@
 import { Awards } from './@types/awards'
 import { Facts } from './@types/facts'
+import { Images } from './@types/images'
+import { ImageParams, Params, ReviewsParams, TopParams } from './@types/params'
+import { Revievs } from './@types/reviews'
 import { ShortStaf } from './@types/staff'
+import { Top } from './@types/top'
 
 type Response<T> = {
 	success: boolean
@@ -8,16 +12,32 @@ type Response<T> = {
 	data: T | null
 }
 
-export class KinopoiskUnofficial {
-	private readonly domen = 'https://kinopoiskapiunofficial.tech/'
+class KinopoiskUnofficial {
+	private readonly domain = 'https://kinopoiskapiunofficial.tech/'
 	private readonly token
 
 	constructor(token: string) {
 		this.token = token
 	}
 
-	private async request<T>(path: string) {
-		const res = await fetch(this.domen + path, {
+	private async request<T>(path: string, params?: Params) {
+		/* GET QUERY PARAMS */
+		let query: Record<string, string> | null = {}
+
+		if (params) {
+			for (const key in params) {
+				if (params[key]) {
+					query[key] = params[key]!.toString()
+				}
+			}
+		} else {
+			query = null
+		}
+
+		const queryString = query ? '?' + new URLSearchParams(query).toString() : ''
+
+		/* REQUEST */
+		const res = await fetch(this.domain + path + queryString, {
 			method: 'GET',
 			mode: 'no-cors',
 			headers: { 'Content-Type': 'application/json', 'X-API-KEY': this.token },
@@ -26,6 +46,7 @@ export class KinopoiskUnofficial {
 			},
 		})
 
+		/* RESPONSE HANDLER */
 		switch (res.status) {
 			case 200:
 				const data = await res.json()
@@ -65,4 +86,21 @@ export class KinopoiskUnofficial {
 		const res = await this.request<Response<Awards[]>>(`v2.2/films/${id}/awards`)
 		return res
 	}
+
+	async getReviewsByMovieId(id: number, params?: ReviewsParams) {
+		const res = await this.request<Response<Revievs[]>>(`v2.2/films/${id}/reviews`, params)
+		return res
+	}
+
+	async getImagesByMovieId(id: number, params?: ImageParams) {
+		const res = await this.request<Response<Images[]>>(`v2.2/films/${id}/images`, params)
+		return res
+	}
+
+	async getTop(params?: TopParams) {
+		const res = await this.request<Response<Top[]>>(`v2.2/films/top`, params)
+		return res
+	}
 }
+
+export default new KinopoiskUnofficial(process.env.KINOPOISKUNOFFICIAL_TOKEN!)
