@@ -8,6 +8,9 @@ import kinopoiskDev from '@/kinopoiskDev'
 import Poster from '@/components/movie/poster/poster'
 import Description from '@/components/movie/description/description'
 import VideoPlayer from '@/components/movie/videoPlayer/videoPlayer'
+import { getParsedFact } from '@/utils/get'
+import Link from 'next/link'
+import Fact from '@/components/movie/fact/fact'
 
 interface MovieProps {
 	params: {
@@ -34,7 +37,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 	])
 	const movie = results[0].status === 'fulfilled' ? results[0].value : null
 	const staff = results[1].status === 'fulfilled' ? results[1].value : null
-	const facts = results[2].status === 'fulfilled' ? results[2].value : null
+	const facts = results[2].status === 'fulfilled' && results[2].value.success ? results[2].value : null
 	const awards = results[3].status === 'fulfilled' ? results[3].value : null
 	const reviews = results[4].status === 'fulfilled' ? results[4].value : null
 
@@ -74,7 +77,9 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 					<h1>Интересные факты:</h1>
 					<ul>
 						{movie?.data?.facts.map((fact, i) => (
-							<li key={i}>{fact.value}</li>
+							<li key={i}>
+								<Fact fact={fact} />
+							</li>
 						))}
 					</ul>
 				</div>

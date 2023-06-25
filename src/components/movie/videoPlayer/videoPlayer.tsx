@@ -2,7 +2,8 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import cls from './videoPlayer.module.scss'
 import { Video } from '@/kinopoiskDev/autotypes'
-import { getYoutybeVideoSrc } from '@/utils/get'
+import { getYoutubeVideoSrc } from '@/utils/get'
+import Select, { IOption } from '@/components/UI/select/select'
 
 interface VideoPlayerProps {
 	videos: Video[]
@@ -17,25 +18,20 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ videos }) => {
 		width.current = Math.floor(innerWidth / 3)
 	}, [])
 
-	function switchCurIndex(type: 'inc' | 'dec') {
-		setCurrentIndex(prev => {
-			if (type === 'inc') {
-				return prev < videos.length - 1 ? prev + 1 : prev
-			} else {
-				return prev > 0 ? prev - 1 : prev
-			}
-		})
-	}
+	const options: IOption[] = []
+
+	videos.forEach((video, i) => {
+		options.push({ id: i, title: video.name!, value: i })
+	})
 
 	return (
-		<div className="flex w-full justify-center">
+		<div className="flex flex-col w-full items-center">
+			<Select options={options} onChange={setCurrentIndex} selected={currentIndex} />
 			<iframe
 				width={width.current}
 				height={width.current / 1.5}
-				src={getYoutybeVideoSrc(videos[currentIndex].url!)}
+				src={getYoutubeVideoSrc(videos[currentIndex].url!)}
 			></iframe>
-			<button onClick={() => switchCurIndex('dec')}>dec</button>
-			<button onClick={() => switchCurIndex('inc')}>inc</button>
 		</div>
 	)
 }

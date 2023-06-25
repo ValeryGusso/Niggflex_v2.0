@@ -6,11 +6,13 @@ import { Revievs } from './@types/reviews'
 import { ShortStaf } from './@types/staff'
 import { Top } from './@types/top'
 
-type Response<T> = {
-	success: boolean
-	error: string | null
-	data: T | null
-}
+type Response<T> = T extends null
+	? {
+			success: false
+			error: string
+			data: null
+	  }
+	: { success: true; error: null; data: T }
 
 class KinopoiskUnofficial {
 	private readonly domain = 'https://kinopoiskapiunofficial.tech/'

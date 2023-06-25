@@ -6,7 +6,8 @@ import Link from 'next/link'
 
 const UserMenu: FC = () => {
 	const isAuth = false
-	const name = 'Мастурбек'
+	const name = 'Иван Диван'
+
 	return (
 		<div className={cls.container}>
 			{isAuth ? (

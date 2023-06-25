@@ -1,0 +1,50 @@
+.container {
+	@apply relative w-1/5;
+	& .title {
+		@apply flex w-full justify-between pl-2 gap-2 cursor-pointer rounded-md border-2 border-neutral-300;
+		& > p {
+			@apply overflow-hidden py-1;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+		& > div {
+			@apply flex items-center justify-center w-8 h-8 bg-neutral-300;
+			& img {
+				@apply transition;
+			}
+		}
+	}
+	& > ul {
+		@apply absolute top-full w-full gap-2 rounded-md bg-neutral-300;
+		height: 4px;
+		filter: opacity(0);
+		transition: 0.3s;
+		& > li {
+			@apply px-4 overflow-hidden cursor-pointer transition color-dark;
+			filter: opacity(0);
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			&:hover {
+				@apply bg-slate-900 color-light;
+			}
+		}
+	}
+}
+
+.open {
+	height: var(--w) !important;
+	filter: opacity(1) !important;
+}
+.show {
+	animation: show 0.3s ease-in 0.3s 1 normal forwards;
+}
+@keyframes show {
+	0% {
+		filter: opacity(0);
+	}
+	100% {
+		filter: opacity(1);
+	}
+}

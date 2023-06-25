@@ -25,7 +25,7 @@ type MultiResponse<T> = {
 }
 
 class KinopoiskDev {
-	private readonly domen = 'https://api.kinopoisk.dev/'
+	private readonly domain = 'https://api.kinopoisk.dev/'
 	private readonly token
 
 	constructor(token: string) {
@@ -55,7 +55,7 @@ class KinopoiskDev {
 			query = '?' + query
 		}
 
-		const res = await fetch(this.domen + path + query, {
+		const res = await fetch(this.domain + path + query, {
 			method: 'GET',
 			mode: 'no-cors',
 			headers: { 'Content-Type': 'application/json', 'X-API-KEY': this.token },

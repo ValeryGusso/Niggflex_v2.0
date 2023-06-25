@@ -25,8 +25,10 @@ export function printProfessin(value?: string) {
 }
 
 export function cut(str: string | null, length: number) {
-	if (!str) return 'Нет данных'
-	console.log(str)
+	if (!str) {
+		return 'Нет данных'
+	}
+
 	if (str.length < length) {
 		return str
 	}
