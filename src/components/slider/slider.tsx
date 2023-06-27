@@ -1,12 +1,57 @@
 'use client'
-import { FC } from 'react'
-import AwesomeSlider, { AwesomeSliderProps } from 'react-awesome-slider'
+import { CSSProperties, FC, useRef, useState } from 'react'
+import cls from './slider.module.scss'
+import AwesomeSlider, { AwesomeSliderProps, AwesomeSliderRequestEventArgs } from 'react-awesome-slider'
 import 'react-awesome-slider/dist/styles.css'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-interface SliderProps extends AwesomeSliderProps {}
+interface SliderProps extends AwesomeSliderProps {
+	titles: string[]
+}
 
-const Slider: FC<SliderProps> = ({ children, className }) => {
-	return <AwesomeSlider className={className}>{children}</AwesomeSlider>
+const Slider: FC<SliderProps> = ({ children, className, titles }) => {
+	const [active, setActive] = useState(0)
+	const [hovered, setHovered] = useState(0)
+	const disable = useRef(false)
+
+	function swipe(e: AwesomeSliderRequestEventArgs) {
+		setActive(e.nextIndex)
+	}
+
+	function click(i: number) {
+		if (!disable.current && i !== active) {
+			setActive(i)
+		}
+	}
+
+	return (
+		<div className={className}>
+			<ul className={cls.menu}>
+				{titles.map((title, i) => (
+					<li
+						key={i}
+						className={`${active === i ? 'text-orange-500 ' : ''}${cls.menu__item}`}
+						onClick={() => click(i)}
+						onMouseEnter={() => setHovered(i)}
+					>
+						{active === i && <FaArrowRight size={24} />}
+						{title}
+						{active === i && <FaArrowLeft size={24} />}
+					</li>
+				))}
+				<li className={cls.background} style={{ '--x': hovered * 288 + 'px' } as CSSProperties}></li>
+			</ul>
+			<AwesomeSlider
+				onTransitionEnd={() => setTimeout(() => (disable.current = false), 500)}
+				onTransitionStart={() => (disable.current = true)}
+				selected={active}
+				onTransitionRequest={swipe}
+				className="h-[55vh]"
+			>
+				{children}
+			</AwesomeSlider>
+		</div>
+	)
 }
 
 export default Slider

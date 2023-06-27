@@ -1,0 +1,23 @@
+.menu {
+	@apply relative flex;
+	&:hover .background {
+		@apply bg-slate-500/50 transition;
+		transform: translate(var(--x), 0);
+	}
+}
+.menu__item {
+	@apply w-72 flex justify-center py-2 text-xl gap-2 cursor-pointer transition;
+	& svg {
+		@apply transition;
+	}
+	&:hover svg:nth-child(1) {
+		@apply -translate-x-4;
+	}
+	&:hover svg:nth-child(2) {
+		@apply translate-x-4;
+	}
+}
+.background {
+	@apply absolute w-72 top-0 left-0 h-full rounded-md transition -z-10;
+	transform: translate(var(--x), 100%);
+}

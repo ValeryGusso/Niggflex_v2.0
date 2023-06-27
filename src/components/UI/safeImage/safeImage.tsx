@@ -1,38 +1,26 @@
+'use client'
 import { FC } from 'react'
 import { useToggle } from '@/hooks/useToggle'
-import Image, { StaticImageData } from 'next/image'
+import Image, { ImageProps, StaticImageData } from 'next/image'
 import defaultImg from '@/assets/img/noimage.png'
+import React from 'react'
 
-interface SafeImageProps {
-	src: string | null
-	defaultImg: StaticImageData
-	description: string
-	className?: string
-	fill?: boolean
-	width?: number
-	height?: number
-	draggable?: boolean
+interface SafeImageProps extends Omit<ImageProps, 'onError'> {
+	errorImage?: string | StaticImageData
 }
 
-const SafeImage: FC<SafeImageProps> = ({ src, defaultImg, description, className, fill, width, height, draggable }) => {
+const SafeImage: FC<SafeImageProps> = React.memo(props => {
 	const [isError, isErrorToggle] = useToggle(false)
 
-	return (
-		<Image
-			src={src && !isError ? src : defaultImg}
-			alt={description}
-			className={className || ''}
-			onError={() => {
-				console.log('error')
-				isErrorToggle()
-			}}
-			fill={fill}
-			width={width}
-			height={height}
-			draggable={draggable}
-			priority
-		/>
-	)
-}
+	function getSrc() {
+		if (isError) {
+			return props.errorImage ? props.errorImage : defaultImg
+		} else {
+			return props.src
+		}
+	}
+
+	return <Image {...props} onLoad={() => isErrorToggle(false)} onError={() => isErrorToggle(true)} src={getSrc()} />
+})
 
 export default SafeImage

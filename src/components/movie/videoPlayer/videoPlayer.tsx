@@ -25,7 +25,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ videos }) => {
 	})
 
 	return (
-		<div className="flex flex-col w-full items-center">
+		<div className="flex w-full items-center">
 			<Select options={options} onChange={setCurrentIndex} selected={currentIndex} />
 			<iframe
 				width={width.current}

@@ -1,3 +1,4 @@
+import { Image } from './@types/images'
 import { FullMovie, ShortMovie } from './autotypes'
 import {
 	IKinopoiskDevParams,
@@ -110,6 +111,11 @@ class KinopoiskDev {
 		const query = new URLSearchParams(options).toString()
 
 		const res = await this.request<MultiResponse<ShortMovie[]>>('v1.2/movie/search?' + query)
+		return res
+	}
+
+	async getImagesByMovieId(id: number) {
+		const res = await this.request<MultiResponse<Image[]>>('v1/image?movieId=1009017&limit=30')
 		return res
 	}
 }

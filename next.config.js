@@ -5,7 +5,7 @@ const nextConfig = {
 		includePaths: [path.join(__dirname, 'styles')],
 	},
 	images: {
-		domains: ['st.kp.yandex.net', 'avatars.mds.yandex.net', 'kinopoiskapiunofficial.tech'],
+		domains: ['st.kp.yandex.net', 'avatars.mds.yandex.net', 'kinopoiskapiunofficial.tech', 'www.themoviedb.org', '*'],
 	},
 }
 
