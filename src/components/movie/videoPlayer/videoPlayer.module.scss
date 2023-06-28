@@ -1,0 +1,9 @@
+.container {
+	@apply w-full flex flex-col items-center gap-6;
+}
+.title {
+	@apply w-full flex gap-6;
+	& > h1 {
+		@apply text-3xl font-black italic;
+	}
+}

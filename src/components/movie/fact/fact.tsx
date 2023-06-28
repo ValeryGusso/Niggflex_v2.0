@@ -23,11 +23,11 @@ const Fact: FC<FactProps> = ({ fact }) => {
 			<p>
 				{getParsedFact(fact.value!).map(el =>
 					el.href ? (
-						<Link href={el.href} className="text-orange-400">
+						<Link href={el.href} className={cls.link}>
 							{el.text}
 						</Link>
 					) : (
-						<span dangerouslySetInnerHTML={{ __html: el.text }}></span>
+						<span dangerouslySetInnerHTML={{ __html: el.text }} className={cls.text}></span>
 					)
 				)}
 			</p>

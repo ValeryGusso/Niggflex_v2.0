@@ -20,7 +20,6 @@ const Search: FC<SearchProps> = ({ onClose }) => {
 
 	function submit() {
 		router.push('/search/result?name=' + value)
-		console.log('ТЫК')
 		if (onClose) {
 			onClose()
 		}

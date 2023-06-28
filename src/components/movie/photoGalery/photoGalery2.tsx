@@ -1,23 +1,21 @@
 'use client'
-import { FC, useState } from 'react'
-import cls from './photoGalery.module.scss'
+import React, { FC } from 'react'
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery'
+import cls from './photoGalery.module.scss'
 import defaultImage from '@/assets/img/noimage.png'
 import SafeImage from '@/components/UI/safeImage/safeImage'
 import { Image } from '@/kinopoiskDev/@types/images'
-import React from 'react'
 import { useToggle } from '@/hooks/useToggle'
 
-interface R {
+interface PhotoGaleryProps {
 	items: Image[]
 }
 
-const PhotoGalery2: FC<R> = ({ items }) => {
-	function onError(e: any) {
-		// if (e.target) {
-		// 	console.log(e)
-		// 	e.target.src = defaultImage.src
-		// }
+const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
+	const [fullScreen, fullScreenToggle] = useToggle(false)
+
+	function changeMode(e: boolean) {
+		fullScreenToggle(e)
 	}
 
 	const data = items.map(img => ({
@@ -27,7 +25,7 @@ const PhotoGalery2: FC<R> = ({ items }) => {
 		thumbnailAlt: img.type,
 		renderItem(e: ReactImageGalleryItem) {
 			return (
-				<div className="h-[55vh]">
+				<div className={`${fullScreen ? 'h-[100vh]' : 'h-[60vh]'}`}>
 					<SafeImage
 						src={e.original}
 						errorImage={defaultImage}
@@ -53,31 +51,17 @@ const PhotoGalery2: FC<R> = ({ items }) => {
 		},
 	}))
 
-	const [fullScreen, fullScreenToggle] = useToggle(false)
-	function changeMode(e: boolean) {
-		fullScreenToggle(e)
-	}
-
 	return (
-		<div className={`${cls.container}${fullScreen ? ' ' + cls.fullscreen : ''}`}>
+		<div className={cls.container}>
 			<ImageGallery
-				// showBullets
 				onScreenChange={changeMode}
 				showIndex
 				thumbnailPosition="left"
 				onErrorImageURL={defaultImage.src}
 				items={data}
-				onThumbnailError={onError}
-				onImageError={onError}
 			/>
 		</div>
 	)
 }
 
 export default PhotoGalery2
-
-{
-	/* <button type="button" tabindex="0" aria-pressed="true" aria-label="Go to Slide 1" class="image-gallery-thumbnail active"><span class="image-gallery-thumbnail-inner"><img class="image-gallery-thumbnail-image" src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/da6e695e-19e4-4d1c-a877-0577dfd5e412/360" alt="promo"></span></button>
-<span class="image-gallery-thumbnail-inner"><img class="image-gallery-thumbnail-image" src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/da6e695e-19e4-4d1c-a877-0577dfd5e412/360" alt="promo"></span>
-<img class="image-gallery-thumbnail-image" src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/da6e695e-19e4-4d1c-a877-0577dfd5e412/360" alt="promo"></img> */
-}

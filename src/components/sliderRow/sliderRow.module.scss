@@ -1,0 +1,30 @@
+.container {
+	@apply w-full flex flex-col gap-4;
+}
+.title {
+	@apply pl-8 text-3xl font-black italic;
+}
+.carousel {
+	@apply gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab;
+}
+.card {
+	@apply w-24 flex flex-col items-center justify-center gap-2 mx-2;
+}
+.card__title {
+	@apply w-full h-14 text-base justify-end pl-1 pt-1 rounded-md bg-neutral-300/10 overflow-hidden transition;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	&:hover {
+		@apply bg-neutral-300/50;
+	}
+}
+.card__role {
+	@apply w-full h-8 pl-1 pt-1 rounded-md bg-neutral-300/10 overflow-hidden;
+}
+.card__imagebox {
+	@apply w-fit h-36 flex items-center justify-center;
+	& > img {
+		@apply rounded-md;
+	}
+}

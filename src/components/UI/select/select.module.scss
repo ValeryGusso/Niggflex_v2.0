@@ -1,15 +1,15 @@
 .container {
 	@apply relative w-1/5;
 	& .title {
-		@apply flex w-full justify-between pl-2 gap-2 cursor-pointer rounded-md border-2 border-neutral-300;
+		@apply relative flex w-full justify-between pl-2 gap-2 cursor-pointer rounded-md border-2 border-neutral-300 bg-neutral-800/50;
 		& > p {
-			@apply overflow-hidden py-1;
+			@apply overflow-hidden py-1 pr-10 bg-neutral-800/40;
 			display: -webkit-box;
 			-webkit-line-clamp: 1;
 			-webkit-box-orient: vertical;
 		}
 		& > div {
-			@apply flex items-center justify-center w-8 h-8 bg-neutral-300;
+			@apply absolute top-0 right-0 flex items-center justify-center w-8 h-8 bg-neutral-300;
 			& img {
 				@apply transition;
 			}

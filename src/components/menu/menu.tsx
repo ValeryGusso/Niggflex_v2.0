@@ -15,31 +15,57 @@ interface MenuProps {
 
 type IMenu = FC & { Desktop: FC<MenuProps>; Mobile: FC<MenuProps> }
 
+type TimerId = ReturnType<typeof setTimeout>
+
+interface Timers {
+	menu: TimerId | null
+	category: TimerId | null
+}
+
 const Menu: IMenu = () => {
 	return null
 }
 
 Menu.Desktop = function Desktop({ onClose }) {
-	const [showCateroy, categoryToggle] = useToggle(false)
-	const id = useRef<ReturnType<typeof setTimeout> | null>(null)
+	const [showCategory, categoryToggle] = useToggle(false)
+	const id = useRef<Timers>({ menu: null, category: null })
 
-	function mouseLeave() {
-		id.current = setTimeout(() => {
-			onClose()
-		}, 2000)
+	function mouseLeave(type: 'menu' | 'category') {
+		switch (type) {
+			case 'menu':
+				id.current.menu = setTimeout(() => {
+					onClose()
+				}, 2000)
+				break
+			case 'category':
+				id.current.category = setTimeout(() => {
+					categoryToggle(false)
+				}, 1000)
+				break
+		}
 	}
 
-	function mouseEnter() {
-		categoryToggle(true)
-		if (id.current) {
-			clearTimeout(id.current)
-			id.current = null
+	function mouseEnter(type: 'menu' | 'category') {
+		switch (type) {
+			case 'menu':
+				if (id.current.menu) {
+					clearTimeout(id.current.menu)
+					id.current.menu = null
+				}
+				break
+			case 'category':
+				if (id.current.category) {
+					clearTimeout(id.current.category)
+					id.current.category = null
+				}
+				categoryToggle(true)
+				break
 		}
 	}
 
 	function renderCategories(list: MenuListItem[]) {
 		return (
-			<ul className={cls.menu__desktop__categories} onMouseLeave={() => categoryToggle(false)}>
+			<ul className={cls.menu__desktop__categories} onMouseLeave={() => mouseLeave('category')}>
 				{list.map(item => (
 					<li key={item.title} className={cls.menu__desktop__item}>
 						<Link href={item.path} className={cls.menu__desktop__item__link}>
@@ -53,11 +79,11 @@ Menu.Desktop = function Desktop({ onClose }) {
 	}
 
 	return (
-		<ul className={cls.menu__desktop} onMouseLeave={mouseLeave} onMouseEnter={mouseEnter}>
+		<ul className={cls.menu__desktop} onMouseLeave={() => mouseLeave('menu')} onMouseEnter={() => mouseEnter('menu')}>
 			{menuList.map(item => (
 				<li key={item.path} className={cls.menu__desktop__item}>
 					{item.children ? (
-						<p className={cls.menu__desktop__item__link} onMouseEnter={mouseEnter}>
+						<p className={cls.menu__desktop__item__link} onMouseEnter={() => mouseEnter('category')}>
 							{item.icon({ className: cls.menu__desktop__item__icon })}
 							{item.title}
 							<BsTriangleFill className={cls.menu__desktop__item__arrow} />
@@ -73,7 +99,7 @@ Menu.Desktop = function Desktop({ onClose }) {
 							{item.title}
 						</Link>
 					)}
-					{item.children && showCateroy && renderCategories(item.children)}
+					{item.children && showCategory && renderCategories(item.children)}
 				</li>
 			))}
 		</ul>
@@ -81,7 +107,7 @@ Menu.Desktop = function Desktop({ onClose }) {
 }
 
 Menu.Mobile = function Mobile({ onClose }) {
-	const [showCateroy, categoryToggle] = useToggle(false)
+	const [showCategory, categoryToggle] = useToggle(false)
 
 	function renderCategories(list: MenuListItem[]) {
 		return (
@@ -108,7 +134,7 @@ Menu.Mobile = function Mobile({ onClose }) {
 								{item.icon({ className: cls.menu__mobile__item__icon })}
 								{item.title}
 								<BsTriangleFill
-									className={`${cls.menu__mobile__item__arrow} ${showCateroy ? 'rotate-180' : 'transform-none'} `}
+									className={`${cls.menu__mobile__item__arrow} ${showCategory ? 'rotate-180' : 'transform-none'} `}
 								/>
 							</p>
 						) : (
@@ -118,7 +144,7 @@ Menu.Mobile = function Mobile({ onClose }) {
 							</Link>
 						)}
 					</div>
-					{item.children && showCateroy && renderCategories(item.children)}
+					{item.children && showCategory && renderCategories(item.children)}
 				</li>
 			))}
 			<li className={cls.menu__mobile__item}>

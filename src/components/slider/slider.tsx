@@ -1,8 +1,8 @@
 'use client'
 import { CSSProperties, FC, useRef, useState } from 'react'
 import cls from './slider.module.scss'
-import AwesomeSlider, { AwesomeSliderProps, AwesomeSliderRequestEventArgs } from 'react-awesome-slider'
 import 'react-awesome-slider/dist/styles.css'
+import AwesomeSlider, { AwesomeSliderProps, AwesomeSliderRequestEventArgs } from 'react-awesome-slider'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 interface SliderProps extends AwesomeSliderProps {
@@ -34,9 +34,9 @@ const Slider: FC<SliderProps> = ({ children, className, titles }) => {
 						onClick={() => click(i)}
 						onMouseEnter={() => setHovered(i)}
 					>
-						{active === i && <FaArrowRight size={24} />}
+						{active === i && <FaArrowRight size={24} fill="rgb(249,115,22)" />}
 						{title}
-						{active === i && <FaArrowLeft size={24} />}
+						{active === i && <FaArrowLeft size={24} fill="rgb(249,115,22)" />}
 					</li>
 				))}
 				<li className={cls.background} style={{ '--x': hovered * 288 + 'px' } as CSSProperties}></li>
@@ -46,7 +46,8 @@ const Slider: FC<SliderProps> = ({ children, className, titles }) => {
 				onTransitionStart={() => (disable.current = true)}
 				selected={active}
 				onTransitionRequest={swipe}
-				className="h-[55vh]"
+				className={`${cls.redefineBg} h-[60vh]`}
+				// animation=''
 			>
 				{children}
 			</AwesomeSlider>

@@ -43,6 +43,6 @@ module.exports = {
 				},
 			})
 		}),
-		scrollbar,
+		scrollbar({ nocompatible: true }),
 	],
 }

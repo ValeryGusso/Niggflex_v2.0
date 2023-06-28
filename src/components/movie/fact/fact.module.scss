@@ -4,11 +4,15 @@
 		@apply italic;
 	}
 }
-
+.link {
+	@apply text-orange-400;
+}
+.text {
+	@apply cursor-default;
+}
 .blur {
 	@apply blur-sm cursor-pointer;
 }
-
 .placeholder {
 	@apply overflow-hidden;
 	display: -webkit-box;

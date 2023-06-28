@@ -1,7 +1,7 @@
 .menu {
 	@apply relative flex;
 	&:hover .background {
-		@apply bg-slate-500/50 transition;
+		@apply bg-neutral-300/25 transition;
 		transform: translate(var(--x), 0);
 	}
 }
@@ -20,4 +20,7 @@
 .background {
 	@apply absolute w-72 top-0 left-0 h-full rounded-md transition -z-10;
 	transform: translate(var(--x), 100%);
+}
+.redefineBg {
+	--content-background-color: transparent;
 }

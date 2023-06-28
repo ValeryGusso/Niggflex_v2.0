@@ -114,8 +114,8 @@ class KinopoiskDev {
 		return res
 	}
 
-	async getImagesByMovieId(id: number) {
-		const res = await this.request<MultiResponse<Image[]>>('v1/image?movieId=1009017&limit=30')
+	async getImagesByMovieId(id: number, page: number = 1) {
+		const res = await this.request<MultiResponse<Image[]>>(`v1/image?movieId=${id}&limit=30&page=${page}`)
 		return res
 	}
 }

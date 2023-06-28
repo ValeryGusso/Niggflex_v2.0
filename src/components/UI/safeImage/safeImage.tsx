@@ -5,7 +5,7 @@ import Image, { ImageProps, StaticImageData } from 'next/image'
 import defaultImg from '@/assets/img/noimage.png'
 import React from 'react'
 
-interface SafeImageProps extends Omit<ImageProps, 'onError'> {
+interface SafeImageProps extends Omit<ImageProps, 'onError' | 'onLoad'> {
 	errorImage?: string | StaticImageData
 }
 
