@@ -10,14 +10,17 @@
 .card {
 	@apply w-24 flex flex-col items-center justify-center gap-2 mx-2;
 }
-.card__title {
-	@apply w-full h-14 text-base justify-end pl-1 pt-1 rounded-md bg-neutral-300/10 overflow-hidden transition;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
+.card__title__container {
+	@apply w-full h-14 flex items-end bg-neutral-300/10 rounded-md transition;
 	&:hover {
 		@apply bg-neutral-300/50;
 	}
+}
+.card__title {
+	@apply w-full h-fit text-base pl-1 pt-1 rounded-md overflow-hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 .card__role {
 	@apply w-full h-8 pl-1 pt-1 rounded-md bg-neutral-300/10 overflow-hidden;

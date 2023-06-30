@@ -10,9 +10,10 @@ import Poster from '@/components/movie/poster/poster'
 import Description from '@/components/movie/description/description'
 import VideoPlayer from '@/components/movie/videoPlayer/videoPlayer'
 import Fact from '@/components/movie/fact/fact'
-import PhotoGalery2 from '@/components/movie/photoGalery/photoGalery2'
+import PhotoGalery from '@/components/movie/photoGalery/photoGalery'
 import Backdrop from '@/components/UI/backdrop/backdrop'
 import nothingFound from '@/assets/img/nothingFound.png'
+import Awards from '@/components/movie/awards/awards'
 
 interface MovieProps {
 	params: {
@@ -38,6 +39,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		kinopoiskUnofficial.getReviewsByMovieId(params.id, { page: 5, opder: 'USER_NEGATIVE_RATING_ASC' }),
 		kinopoiskDev.getImagesByMovieId(params.id),
 	])
+
 	const movie = results[0].status === 'fulfilled' ? results[0].value : null
 	const staff = results[1].status === 'fulfilled' && results[1].value.success ? results[1].value.data : null
 	const facts = results[2].status === 'fulfilled' && results[2].value.success ? results[2].value.data : null
@@ -65,6 +67,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		return result
 	}
 
+	console.log(awards?.items)
 	return (
 		<div className={cls.movie}>
 			<Backdrop src={movie?.data?.poster.url!} alt={movie?.data?.enName} />
@@ -72,6 +75,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 				<Poster movie={movie?.data!} />
 				<Description movie={movie?.data!} />
 			</div>
+			{awards?.items.length && <Awards awards={awards.items} />}
 			<Slider
 				titles={['Описание', 'Интересные факты', 'Гелерея', 'Трейлеры']}
 				className="h-[calc(60vh+110px)] flex flex-col gap-4 items-center"
@@ -103,7 +107,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 				<div className="w-full h-full flex justify-center px-32">
 					{images?.data?.docs?.length ? (
 						<div className="w-[50vw] h-fit">
-							<PhotoGalery2 items={images?.data?.docs!} />
+							<PhotoGalery items={images?.data?.docs!} />
 						</div>
 					) : (
 						<div className="w-fit h-52">

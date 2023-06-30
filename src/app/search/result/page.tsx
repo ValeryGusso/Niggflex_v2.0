@@ -10,7 +10,7 @@ interface SearchProps {
 
 const SearchResult: FC<SearchProps> = async ({ searchParams }) => {
 	await new Promise(res => setTimeout(res, 2000))
-	return <div>SEARCH: {searchParams.name}</div>
+	return <div className={cls.container}>SEARCH: {searchParams.name}</div>
 }
 
 export default SearchResult

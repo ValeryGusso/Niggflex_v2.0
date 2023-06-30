@@ -47,7 +47,6 @@ const Slider: FC<SliderProps> = ({ children, className, titles }) => {
 				selected={active}
 				onTransitionRequest={swipe}
 				className={`${cls.redefineBg} h-[60vh]`}
-				// animation=''
 			>
 				{children}
 			</AwesomeSlider>

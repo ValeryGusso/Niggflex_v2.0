@@ -35,9 +35,11 @@ const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
 			>
 				{persons.map((person, i) => (
 					<div className={cls.card} key={i}>
-						<Link href={'#' /* `name/${person.staffId}` */} className={cls.card__title}>
-							{cut(person.nameRu || person.nameEn || 'Нет данных', 20)}
-						</Link>
+						<div className={cls.card__title__container}>
+							<Link href={'#' /* `name/${person.staffId}` */} className={cls.card__title}>
+								{cut(person.nameRu || person.nameEn || 'Нет данных', 20)}
+							</Link>
+						</div>
 						<div className={cls.card__imagebox}>
 							<SafeImage src={person.posterUrl} alt={`photo ${person.nameEn}`} width={300} height={400} />
 						</div>

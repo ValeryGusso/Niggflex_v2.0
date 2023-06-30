@@ -1,9 +1,9 @@
 'use client'
-import { FC, MouseEvent } from 'react'
+import { FC, Fragment, MouseEvent } from 'react'
+import Link from 'next/link'
 import cls from './fact.module.scss'
 import { FactInMovie } from '@/kinopoiskDev/autotypes'
 import { getParsedFact } from '@/utils/get'
-import Link from 'next/link'
 import { useToggle } from '@/hooks/useToggle'
 
 interface FactProps {
@@ -21,15 +21,17 @@ const Fact: FC<FactProps> = ({ fact }) => {
 	function renderFact() {
 		return (
 			<p>
-				{getParsedFact(fact.value!).map(el =>
-					el.href ? (
-						<Link href={el.href} className={cls.link}>
-							{el.text}
-						</Link>
-					) : (
-						<span dangerouslySetInnerHTML={{ __html: el.text }} className={cls.text}></span>
-					)
-				)}
+				{getParsedFact(fact.value!).map((el, i) => (
+					<Fragment key={i}>
+						{el.href ? (
+							<Link href={el.href} className={cls.link}>
+								{el.text}
+							</Link>
+						) : (
+							<span dangerouslySetInnerHTML={{ __html: el.text }} className={cls.text}></span>
+						)}
+					</Fragment>
+				))}
 			</p>
 		)
 	}

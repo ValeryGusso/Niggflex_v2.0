@@ -1,72 +1,67 @@
 'use client'
-import { FC, useRef, useState } from 'react'
-import 'pure-react-carousel/dist/react-carousel.es.css'
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
-import { Image as ImageType } from '@/kinopoiskDev/@types/images'
+import React, { FC } from 'react'
+import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery'
+import cls from './photoGalery.module.scss'
+import defaultImage from '@/assets/img/noimage.png'
 import SafeImage from '@/components/UI/safeImage/safeImage'
+import { Image } from '@/kinopoiskDev/@types/images'
+import { useToggle } from '@/hooks/useToggle'
 
 interface PhotoGaleryProps {
-	images: ImageType[]
+	items: Image[]
 }
 
-const PhotoGalery: FC<PhotoGaleryProps> = ({ images }) => {
-	const timestamp = useRef(0)
-	const [selected, setSelected] = useState(0)
+const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
+	const [fullScreen, fullScreenToggle] = useToggle(false)
 
-	function click(i: number) {
-		if (Date.now() - timestamp.current < 200) {
-			setSelected(i)
-		}
+	function changeMode(e: boolean) {
+		fullScreenToggle(e)
 	}
 
-	return (
-		<div className="w-[50vw] h-[50vh] overflow-hidden">
-			<CarouselProvider
-				naturalSlideWidth={100}
-				naturalSlideHeight={125}
-				totalSlides={30}
-				orientation="vertical"
-				visibleSlides={10}
-				className="flex w-full h-full gap-4"
-			>
-				<div className="w-20 h-full overflow-hidden">
-					<Slider preventVerticalScrollOnTouch className="h-full cursor-pointer">
-						{images.map((img, i) => (
-							<Slide
-								index={i}
-								className="w-full h-fit p-2 flex items-center justify-center border-2 border-transparent hover:border-sky-300"
-								onPointerDown={() => (timestamp.current = Date.now())}
-								onPointerUp={() => click(i)}
-								tag="div"
-							>
-								<SafeImage src={img.url} alt={img.type} width={img.width} height={img.height} draggable={false} />
-							</Slide>
-						))}
-					</Slider>
-				</div>
-				<div className="relative w-full h-full flex items-center justify-center">
-					<div className="absolute top-1/2 left-4">
-						<ButtonBack>
-							<p>Предыдущая</p>
-						</ButtonBack>
-					</div>
-					<div className="absolute top-1/2 right-4">
-						<ButtonNext>
-							<p>Следующая</p>
-						</ButtonNext>
-					</div>
+	const data = items.map(img => ({
+		original: img.url,
+		thumbnail: img.previewUrl,
+		originalAlt: img.type,
+		thumbnailAlt: img.type,
+		renderItem(e: ReactImageGalleryItem) {
+			return (
+				<div className={`${fullScreen ? 'h-[100vh]' : 'h-[60vh]'}`}>
 					<SafeImage
-						src={images[selected].url}
-						alt={images[selected].type}
-						width={images[selected].width}
-						height={images[selected].height}
-						draggable={false}
-						className="conta"
+						src={e.original}
+						errorImage={defaultImage}
+						alt={e.originalAlt!}
+						fill
+						className="object-scale-down"
 					/>
 				</div>
-			</CarouselProvider>
+			)
+		},
+		renderThumbInner(e: ReactImageGalleryItem) {
+			return (
+				<span className="flex h-16 image-gallery-thumbnail-inner">
+					<SafeImage
+						src={e.thumbnail!}
+						errorImage={defaultImage}
+						alt={e.thumbnailAlt!}
+						fill
+						className="object-scale-down image-gallery-thumbnail-image"
+					/>
+				</span>
+			)
+		},
+	}))
+
+	return (
+		<div className={cls.container}>
+			<ImageGallery
+				onScreenChange={changeMode}
+				showIndex
+				thumbnailPosition="left"
+				onErrorImageURL={defaultImage.src}
+				items={data}
+			/>
 		</div>
 	)
 }
 
-export default PhotoGalery
+export default PhotoGalery2
