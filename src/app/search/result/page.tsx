@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import cls from './page.module.css'
+import cls from './result.module.scss'
 
 interface SearchProps {
 	params: {

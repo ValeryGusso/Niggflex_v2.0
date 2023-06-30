@@ -2,7 +2,7 @@ import { FC } from 'react'
 import cls from './favorites.module.scss'
 
 const Favorites: FC = () => {
-	return <div>FAVORITES</div>
+	return <div className={cls.container}>FAVORITES</div>
 }
 
 export default Favorites

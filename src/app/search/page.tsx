@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import cls from './page.module.scss'
+import cls from './search.module.scss'
 
 const SearchPage: FC = () => {
-	return <div>SEARCH PAGE</div>
+	return <div className={cls.container}>SEARCH PAGE</div>
 }
 
 export default SearchPage
