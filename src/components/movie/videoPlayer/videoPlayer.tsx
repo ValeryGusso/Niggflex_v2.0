@@ -31,7 +31,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ videos }) => {
 		<div className={cls.container}>
 			<div className={cls.title}>
 				<h1>Трейлеры</h1>
-				<Select options={options} onChange={setCurrentIndex} selected={currentIndex} />
+				<Select options={options} onChange={setCurrentIndex} selected={currentIndex} width={350} />
 			</div>
 			{width.current > 0 && (
 				<iframe width={width.current} height={width.current / 1.5} src={getYoutubeVideoSrc(videos[currentIndex].url!)}>

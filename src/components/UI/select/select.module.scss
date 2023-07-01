@@ -1,9 +1,10 @@
 .container {
-	@apply relative w-1/5;
+	@apply h-fit relative w-1/5;
+	width: var(--w);
 	& .title {
 		@apply relative flex w-full justify-between pl-2 gap-2 cursor-pointer rounded-md border-2 border-neutral-300 bg-neutral-800/50;
 		& > p {
-			@apply overflow-hidden py-1 pr-10 bg-neutral-800/40;
+			@apply w-full py-1 pr-10 bg-neutral-800/40 overflow-hidden;
 			display: -webkit-box;
 			-webkit-line-clamp: 1;
 			-webkit-box-orient: vertical;

@@ -6,9 +6,9 @@
 	}
 }
 .menu__item {
-	@apply w-72 flex justify-center py-2 text-xl gap-2 cursor-pointer transition;
+	@apply w-72 flex justify-center py-2 text-2xl gap-2 cursor-pointer transition;
 	& svg {
-		@apply transition;
+		@apply translate-y-1 transition;
 	}
 	&:hover svg:nth-child(1) {
 		@apply -translate-x-4;

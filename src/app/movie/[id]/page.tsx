@@ -75,9 +75,9 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 				<Poster movie={movie?.data!} />
 				<Description movie={movie?.data!} />
 			</div>
-			{awards?.items.length && <Awards awards={awards.items} />}
+			{/* {awards?.items.length && <Awards awards={awards.items} />} */}
 			<Slider
-				titles={['Описание', 'Интересные факты', 'Гелерея', 'Трейлеры']}
+				titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']}
 				className="h-[calc(60vh+110px)] flex flex-col gap-4 items-center"
 			>
 				<div className="w-full h-full flex items-center px-32 cursor-default">
@@ -109,6 +109,15 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 						<div className="w-[50vw] h-fit">
 							<PhotoGalery items={images?.data?.docs!} />
 						</div>
+					) : (
+						<div className="w-fit h-52">
+							<Image src={nothingFound} alt="no data" fill className="object-scale-down" />
+						</div>
+					)}
+				</div>
+				<div className="w-full h-full flex justify-center px-32">
+					{awards?.items.length ? (
+						<Awards awards={awards.items} />
 					) : (
 						<div className="w-fit h-52">
 							<Image src={nothingFound} alt="no data" fill className="object-scale-down" />

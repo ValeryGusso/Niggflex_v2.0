@@ -1,5 +1,5 @@
 'use client'
-import { CSSProperties, Dispatch, FC, SetStateAction } from 'react'
+import { CSSProperties, FC, useRef } from 'react'
 import Image from 'next/image'
 import cls from './select.module.scss'
 import { useToggle } from '@/hooks/useToggle'
@@ -14,19 +14,39 @@ export interface IOption {
 interface SelectProps {
 	options: IOption[]
 	selected: number
-	onChange: Dispatch<SetStateAction<number>>
+	onChange: (num: number) => void
+	width?: number | `${number}`
 }
 
-const Select: FC<SelectProps> = ({ options, selected, onChange }) => {
+const Select: FC<SelectProps> = ({ options, selected, onChange, width }) => {
 	const [isOpen, isOpenToggle] = useToggle(false)
+	const id = useRef<ReturnType<typeof setTimeout> | null>(null)
 
 	function click(value: number) {
 		onChange(value)
 		isOpenToggle()
 	}
 
+	function mouseLeave() {
+		id.current = setTimeout(() => {
+			isOpenToggle(false)
+		}, 1000)
+	}
+
+	function mouseEnter() {
+		if (id.current) {
+			clearTimeout(id.current)
+		}
+		id.current = null
+	}
+
 	return (
-		<div className={cls.container}>
+		<div
+			className={cls.container}
+			style={{ '--w': width ? width + 'px' : '250px' } as CSSProperties}
+			onMouseLeave={mouseLeave}
+			onMouseEnter={mouseEnter}
+		>
 			<div className={cls.title} onClick={() => isOpenToggle()}>
 				<p>{options[selected].title}</p>
 				<div>
