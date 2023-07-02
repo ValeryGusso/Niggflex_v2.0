@@ -102,14 +102,14 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 			{similars?.items.length && (
 				<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
 					{similars.items.map(movie => (
-						<MovieCard movie={movie} />
+						<MovieCard movie={movie} key={movie.filmId} />
 					))}
 				</SliderRow>
 			)}
 			{sequelsAndPrequels?.length && (
 				<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
 					{sequelsAndPrequels.map(movie => (
-						<MovieCard movie={movie} />
+						<MovieCard movie={movie} key={movie.filmId} />
 					))}
 				</SliderRow>
 			)}
