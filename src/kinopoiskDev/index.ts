@@ -58,7 +58,6 @@ class KinopoiskDev {
 
 		const res = await fetch(this.domain + path + query, {
 			method: 'GET',
-			mode: 'no-cors',
 			headers: { 'Content-Type': 'application/json', 'X-API-KEY': this.token },
 			next: {
 				revalidate: 86400,

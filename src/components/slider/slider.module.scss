@@ -3,6 +3,7 @@
 	&:hover .background {
 		@apply bg-neutral-300/25 transition;
 		transform: translate(var(--x), 0);
+		filter: opacity(1);
 	}
 }
 .menu__item {
@@ -18,8 +19,9 @@
 	}
 }
 .background {
-	@apply absolute w-72 top-0 left-0 h-full rounded-md transition -z-10;
+	@apply absolute w-72 top-0 left-0 h-full rounded-md transition shadow-sm shadow-neutral-300 -z-10;
 	transform: translate(var(--x), 100%);
+	filter: opacity(0);
 }
 .redefineBg {
 	--content-background-color: transparent;

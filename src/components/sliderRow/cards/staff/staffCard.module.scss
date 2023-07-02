@@ -1,9 +1,3 @@
-.container {
-	@apply w-full flex flex-col gap-4;
-}
-.title {
-	@apply pl-8 text-3xl font-black italic;
-}
 .carousel {
 	@apply gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab;
 }
@@ -11,7 +5,7 @@
 	@apply w-24 flex flex-col items-center justify-center gap-2 mx-2;
 }
 .card__title__container {
-	@apply w-full h-8 flex items-center justify-center bg-neutral-300/10 rounded-md transition;
+	@apply w-full h-8 flex items-center justify-center bg-neutral-300/10 rounded-md shadow-sm shadow-neutral-300 transition;
 	&:hover {
 		@apply bg-neutral-300/50;
 	}
@@ -20,11 +14,11 @@
 	@apply whitespace-nowrap text-ellipsis text-sm pl-1 overflow-hidden;
 }
 .card__role {
-	@apply w-full h-8 pl-1 pt-1 rounded-md bg-neutral-300/10 overflow-hidden;
+	@apply w-full h-8 pl-1 pt-1 rounded-md bg-neutral-300/10 shadow-sm shadow-neutral-300 overflow-hidden;
 }
 .card__imagebox {
-	@apply w-fit h-36 flex items-center justify-center;
+	@apply w-full h-36 flex items-center justify-center;
 	& > img {
-		@apply rounded-md;
+		@apply rounded-md object-scale-down;
 	}
 }

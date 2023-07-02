@@ -1,0 +1,25 @@
+.container {
+	@apply flex flex-col w-1/5 gap-2;
+}
+.poster {
+	@apply flex flex-col w-full shadow-sm shadow-neutral-300;
+	& .poster__image {
+		@apply w-full h-fit rounded-md;
+	}
+}
+
+.rating {
+	@apply flex flex-col gap-2;
+}
+.rating__row {
+	@apply flex w-full justify-around py-2 rounded-md bg-neutral-300 bg-opacity-10 shadow-sm  shadow-neutral-300;
+}
+.rating__image {
+	@apply w-6 lg:w-8 h-fit;
+}
+.rating__item {
+	@apply flex justify-center items-center gap-2;
+}
+.rating__description {
+	@apply flex flex-col items-center justify-center;
+}

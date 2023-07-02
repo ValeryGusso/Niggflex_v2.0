@@ -1,3 +1,33 @@
 .container {
 	@apply w-full h-full flex pl-24 justify-around gap-8;
 }
+.award {
+	@apply w-72 h-full flex flex-col gap-4;
+}
+.award__name {
+	@apply text-3xl text-center italic font-black;
+}
+.award__year {
+	@apply text-4xl text-center italic font-black;
+}
+.award__image {
+	@apply w-fit h-72 flex;
+}
+.category {
+	@apply h-full flex flex-col flex-1 justify-start gap-10;
+}
+.category__container {
+	@apply w-fit flex flex-col gap-4 p-2 overflow-auto;
+}
+.category__item {
+	@apply flex gap-2 py-4 px-6 bg-neutral-900/30 rounded-md shadow-sm shadow-neutral-300;
+}
+.person {
+	@apply flex flex-col gap-2;
+}
+.person__title {
+	@apply text-2xl;
+}
+.person__prof {
+	@apply text-xl;
+}

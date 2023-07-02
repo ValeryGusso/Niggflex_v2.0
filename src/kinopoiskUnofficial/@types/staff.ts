@@ -1,4 +1,4 @@
-export interface ShortStaf {
+export interface Staf {
 	staffId: number
 	nameRu: string | null
 	nameEn: string | null

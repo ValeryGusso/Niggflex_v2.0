@@ -1,3 +1,18 @@
 .container {
 	@apply relative w-[50vw] h-full;
 }
+.thumb {
+	@apply flex h-16;
+}
+.total {
+	@apply absolute w-60 top-0 -left-60;
+	& h2 {
+		@apply w-full text-center text-3xl;
+	}
+	& h3 {
+		@apply w-full text-center text-4xl;
+	}
+}
+.loaded {
+	@apply absolute top-0 text-2xl -right-32;
+}

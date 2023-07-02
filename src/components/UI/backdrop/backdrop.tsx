@@ -2,18 +2,17 @@
 import { FC } from 'react'
 import cls from './backdrop.module.scss'
 import SafeImage from '../safeImage/safeImage'
-import { StaticImageData } from 'next/image'
+import defaultImage from '@/assets/img/bg/default_bg.webp'
 
 interface BackdropProps {
-	src: string | StaticImageData
-	defaultSrc?: string | StaticImageData
+	src?: string | null
 	alt?: string | null
 }
 
-const Backdrop: FC<BackdropProps> = ({ src, alt, defaultSrc }) => {
+const Backdrop: FC<BackdropProps> = ({ src, alt }) => {
 	return (
 		<div className={cls.container}>
-			<SafeImage src={src} alt={alt || 'background'} errorImage={defaultSrc} fill />
+			<SafeImage src={src || defaultImage} alt={alt || 'background'} errorImage={defaultImage} fill />
 		</div>
 	)
 }

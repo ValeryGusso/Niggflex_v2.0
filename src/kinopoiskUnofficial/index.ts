@@ -3,8 +3,10 @@ import { Facts } from './@types/facts'
 import { Images } from './@types/images'
 import { ImageParams, Params, ReviewsParams, TopParams } from './@types/params'
 import { Revievs } from './@types/reviews'
-import { ShortStaf } from './@types/staff'
+import { Staf } from './@types/staff'
 import { Top } from './@types/top'
+import { Similars } from './@types/similar'
+import { SequelsAndPrequels } from './@types/sequelsAndPrequels'
 
 type Response<T> = T extends null
 	? {
@@ -75,7 +77,7 @@ class KinopoiskUnofficial {
 	}
 
 	async getStaffByMovieId(id: number) {
-		const res = await this.request<Response<ShortStaf[]>>('api/v1/staff?filmId=' + id)
+		const res = await this.request<Response<Staf[]>>('api/v1/staff?filmId=' + id)
 		return res
 	}
 
@@ -91,6 +93,16 @@ class KinopoiskUnofficial {
 
 	async getReviewsByMovieId(id: number, params?: ReviewsParams) {
 		const res = await this.request<Response<Revievs[]>>(`api/v2.2/films/${id}/reviews`, params)
+		return res
+	}
+
+	async getSequelsAndPrequelsByMovieId(id: number) {
+		const res = await this.request<Response<SequelsAndPrequels[]>>(`api/v2.1/films/${id}/sequels_and_prequels`)
+		return res
+	}
+
+	async getSimilarsByMovieId(id: number) {
+		const res = await this.request<Response<Similars>>(`api/v2.2/films/${id}/similars`)
 		return res
 	}
 

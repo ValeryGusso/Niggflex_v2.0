@@ -1,25 +1,22 @@
 'use client'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import cls from './sliderRow.module.scss'
-import Flickity from 'react-flickity-component'
-import { ShortStaf } from '@/kinopoiskUnofficial/@types/staff'
-import { cut, printProfessin } from '@/utils/print'
-import Link from 'next/link'
-import SafeImage from '../UI/safeImage/safeImage'
+import Flickity, { FlickityOptions } from 'react-flickity-component'
 
 interface SliderRowProps {
 	title: string
-	showRole: boolean
-	persons: ShortStaf[]
+	length: number
+	children: ReactNode
+	freeScroll?: boolean
 }
 
-const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
-	const flickityOptions = {
-		wrapAround: persons.length > 20,
-		cellAlign: persons.length > 20 ? 'left' : 'center',
-		initialIndex: persons.length > 20 ? 0 : Math.floor(persons.length / 2),
+const SliderRow: FC<SliderRowProps> = ({ title, length, children, freeScroll }) => {
+	const flickityOptions: FlickityOptions = {
+		wrapAround: length > 20,
+		cellAlign: length > 20 ? 'left' : 'center',
+		initialIndex: length > 20 ? 0 : Math.floor(length / 2),
 		accessibility: false,
-		freeScroll: true,
+		freeScroll: freeScroll !== undefined ? freeScroll : true,
 	}
 
 	return (
@@ -33,19 +30,7 @@ const SliderRow: FC<SliderRowProps> = ({ title, showRole, persons }) => {
 				reloadOnUpdate
 				static
 			>
-				{persons.map((person, i) => (
-					<div className={cls.card} key={i}>
-						<div className={cls.card__title__container}>
-							<Link href={'#' /* `name/${person.staffId}` */} className={cls.card__title}>
-								{cut(person.nameRu || person.nameEn || 'Нет данных', 20)}
-							</Link>
-						</div>
-						<div className={cls.card__imagebox}>
-							<SafeImage src={person.posterUrl} alt={`photo ${person.nameEn}`} width={300} height={400} />
-						</div>
-						{showRole && <p className={cls.card__role}>{printProfessin(person.professionText)}</p>}
-					</div>
-				))}
+				{children}
 			</Flickity>
 		</div>
 	)

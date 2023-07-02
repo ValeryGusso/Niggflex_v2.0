@@ -1,11 +1,11 @@
 'use client'
-import { FC, Fragment, useState } from 'react'
+import { FC, useState } from 'react'
+import Link from 'next/link'
 import cls from './awards.module.scss'
 import { Award } from '@/kinopoiskUnofficial/@types/awards'
 import SafeImage from '@/components/UI/safeImage/safeImage'
-import defaultAward from '@/assets/img/default_award.png'
 import Select, { IOption } from '@/components/UI/select/select'
-import Link from 'next/link'
+import defaultAward from '@/assets/img/default_award.png'
 
 interface AwardsProps {
 	awards: Award[]
@@ -13,6 +13,7 @@ interface AwardsProps {
 
 interface AwardsList {
 	name: string
+	year: number
 	image: string | null
 	items: Award[]
 }
@@ -29,7 +30,7 @@ function awardsParser(awards: Award[]) {
 		if (list.has(award.name)) {
 			list.get(award.name)?.items.push(award)
 		} else {
-			list.set(award.name, { name: award.name, image: award.imageUrl, items: [award] })
+			list.set(award.name, { name: award.name, year: award.year, image: award.imageUrl, items: [award] })
 		}
 	})
 
@@ -58,9 +59,11 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 
 	return (
 		<div className={cls.container}>
-			<div className="w-72 h-full flex flex-col gap-4">
+			<div className={cls.award}>
 				<Select options={optionsAwards} selected={activeAward} onChange={changeAward} />
-				<div className="w-fit h-72 flex">
+				<h3 className={cls.award__name}>{award[activeAward].name}</h3>
+				<h1 className={cls.award__year}>{award[activeAward].year} г.</h1>
+				<div className={cls.award__image}>
 					<SafeImage
 						src={award[activeAward].image}
 						errorImage={defaultAward}
@@ -68,19 +71,20 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 						width={400}
 						height={600}
 						className="object-scale-down"
+						draggable={false}
 					/>
 				</div>
 			</div>
-			<div className="h-full flex flex-col flex-1 justify-start gap-12">
+			<div className={cls.category}>
 				<Select
 					options={optionsCategories[activeAward]}
 					selected={activeCategory}
 					onChange={setActiveCategory}
 					width={350}
 				/>
-				<div className="w-fit flex flex-col gap-4 overflow-auto">
+				<div className={cls.category__container}>
 					{award[activeAward].items[activeCategory].persons?.map(person => (
-						<div className="flex gap-2 py-4 px-6 bg-neutral-900/25 rounded-md" key={person.kinopoiskId}>
+						<div className={cls.category__item} key={person.kinopoiskId}>
 							<div>
 								<SafeImage
 									src={person.posterUrl}
@@ -88,13 +92,14 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 									width={90}
 									height={120}
 									className="rounded-md"
+									draggable={false}
 								/>
 							</div>
-							<div>
-								<Link href="#" className="text-2xl">
+							<div className={cls.person}>
+								<Link href="#" className={cls.person__title}>
 									{person.nameRu || person.nameEn}
 								</Link>
-								<h4 className="text-xl">{person.profession}</h4>
+								<h4 className={cls.person__prof}>{person.profession}</h4>
 								<p>{`${award[activeAward].items[activeCategory].win ? 'Победитель' : 'Номинант'} (${
 									award[activeAward].items[activeCategory].year
 								}) в категории "${award[activeAward].items[activeCategory].nominationName.toLocaleLowerCase()}"`}</p>

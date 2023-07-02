@@ -15,7 +15,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ videos }) => {
 
 	useEffect(() => {
 		const { innerWidth } = window
-		width.current = Math.floor(innerWidth / 2)
+		width.current = Math.floor(innerWidth / 1.5)
 		setCurrentIndex(0)
 	}, [])
 

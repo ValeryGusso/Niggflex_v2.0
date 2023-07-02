@@ -1,5 +1,5 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useCallback, useRef, useState } from 'react'
 import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery'
 import cls from './photoGalery.module.scss'
 import defaultImage from '@/assets/img/noimage.png'
@@ -9,16 +9,50 @@ import { useToggle } from '@/hooks/useToggle'
 
 interface PhotoGaleryProps {
 	items: Image[]
+	total: number
+	movieId: number
 }
 
-const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
+interface PageStatus {
+	page: number
+	loading: boolean
+	curIndex: number
+}
+
+const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
+	const [photo, setPhoto] = useState<Image[]>([...items])
 	const [fullScreen, fullScreenToggle] = useToggle(false)
+	const pageStatus = useRef<PageStatus>({ page: 2, loading: false, curIndex: 0 })
 
-	function changeMode(e: boolean) {
+	const changeMode = useCallback((e: boolean) => {
 		fullScreenToggle(e)
-	}
+	}, [])
 
-	const data = items.map(img => ({
+	const onSlide = useCallback(
+		async (i: number) => {
+			pageStatus.current.curIndex = i
+
+			if (i > photo.length - 5 && pageStatus.current.page * 30 < total && !pageStatus.current.loading) {
+				console.log('start loading')
+				pageStatus.current.loading = true
+				const res = await fetch('/api/movie/updateImage', {
+					method: 'POST',
+					body: JSON.stringify({ id: movieId, page: pageStatus.current.page }),
+				})
+
+				const data: { images: Image[] } = await res.json()
+
+				if (data.images.length) {
+					setPhoto(prev => [...prev, ...data.images])
+					pageStatus.current.page++
+				}
+				pageStatus.current.loading = false
+			}
+		},
+		[photo]
+	)
+
+	const data = photo.map(img => ({
 		original: img.url,
 		thumbnail: img.previewUrl,
 		originalAlt: img.type,
@@ -38,7 +72,7 @@ const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
 		},
 		renderThumbInner(e: ReactImageGalleryItem) {
 			return (
-				<span className="flex h-16 image-gallery-thumbnail-inner">
+				<div className={cls.thumb + ' image-gallery-thumbnail-inner'}>
 					<SafeImage
 						src={e.thumbnail!}
 						errorImage={defaultImage}
@@ -46,7 +80,7 @@ const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
 						fill
 						className="object-scale-down image-gallery-thumbnail-image"
 					/>
-				</span>
+				</div>
 			)
 		},
 	}))
@@ -55,13 +89,20 @@ const PhotoGalery2: FC<PhotoGaleryProps> = ({ items }) => {
 		<div className={cls.container}>
 			<ImageGallery
 				onScreenChange={changeMode}
+				onSlide={onSlide}
 				showIndex
+				startIndex={pageStatus.current.curIndex}
 				thumbnailPosition="left"
 				onErrorImageURL={defaultImage.src}
 				items={data}
 			/>
+			<div className={cls.total}>
+				<h2>Всего найдено</h2>
+				<h3> {total}</h3>
+			</div>
+			<h2 className={cls.loaded}>загружено</h2>
 		</div>
 	)
 }
 
-export default PhotoGalery2
+export default PhotoGalery

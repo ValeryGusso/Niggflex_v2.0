@@ -4,10 +4,7 @@
 	& .title {
 		@apply relative flex w-full justify-between pl-2 gap-2 cursor-pointer rounded-md border-2 border-neutral-300 bg-neutral-800/50;
 		& > p {
-			@apply w-full py-1 pr-10 bg-neutral-800/40 overflow-hidden;
-			display: -webkit-box;
-			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
+			@apply w-full py-1 pr-10 bg-neutral-800/40 whitespace-nowrap text-ellipsis overflow-hidden;
 		}
 		& > div {
 			@apply absolute top-0 right-0 flex items-center justify-center w-8 h-8 bg-neutral-300;
@@ -22,11 +19,8 @@
 		filter: opacity(0);
 		transition: 0.3s;
 		& > li {
-			@apply px-4 overflow-hidden cursor-pointer transition color-dark;
+			@apply px-4 whitespace-nowrap text-ellipsis overflow-hidden cursor-pointer transition color-dark;
 			filter: opacity(0);
-			display: -webkit-box;
-			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
 			&:hover {
 				@apply bg-slate-900 color-light;
 			}

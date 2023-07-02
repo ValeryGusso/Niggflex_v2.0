@@ -5,11 +5,11 @@ export interface Similars {
 
 export interface Similar {
 	filmId: number
-	nameRu: string
-	nameEn: string
-	nameOriginal: string
-	posterUrl: string
-	posterUrlPreview: string
+	nameRu: string | null
+	nameEn: string | null
+	nameOriginal: string | null
+	posterUrl: string | null
+	posterUrlPreview: string | null
 	relationType: RelationType
 }
 

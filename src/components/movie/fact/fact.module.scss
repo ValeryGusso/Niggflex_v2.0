@@ -14,10 +14,7 @@
 	@apply blur-sm cursor-pointer;
 }
 .placeholder {
-	@apply overflow-hidden;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
+	@apply whitespace-nowrap text-ellipsis overflow-hidden;
 }
 .spoiler {
 	@apply absolute top-0 left-1/2 -translate-x-1/2 px-4 bg-neutral-800 cursor-pointer rounded-md;

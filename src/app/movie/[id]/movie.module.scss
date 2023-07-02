@@ -4,3 +4,21 @@
 .logo {
 	@apply w-full flex gap-4 justify-center;
 }
+.slider {
+	@apply h-[calc(60vh+110px)] flex flex-col gap-4 items-center;
+}
+.slider__container {
+	@apply w-full h-full px-32;
+}
+.slider__description {
+	@apply mt-6 px-12 text-3xl text-center;
+}
+.slider__facts {
+	@apply h-full flex flex-col gap-6 mt-4 pl-12 pb-12 overflow-auto;
+}
+.carousel {
+	@apply gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab;
+}
+.break {
+	@apply w-full h-2 blur-[6px] bg-neutral-300/75;
+}

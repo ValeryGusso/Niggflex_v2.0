@@ -29,3 +29,18 @@ export const menuList: MenuListItem[] = [
 	},
 	{ title: 'Избранное', path: '/favorites', icon: BsBookmarkHeartFill, children: null },
 ]
+
+export const months = [
+	'января',
+	'февраля',
+	'марта',
+	'апреля',
+	'мая',
+	'июня',
+	'июля',
+	'августа',
+	'сентября',
+	'октября',
+	'ноября',
+	'декабря',
+]

@@ -1,9 +1,9 @@
 'use client'
 import { CSSProperties, FC, useRef, useState } from 'react'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import AwesomeSlider, { AwesomeSliderProps, AwesomeSliderRequestEventArgs } from 'react-awesome-slider'
 import cls from './slider.module.scss'
 import 'react-awesome-slider/dist/styles.css'
-import AwesomeSlider, { AwesomeSliderProps, AwesomeSliderRequestEventArgs } from 'react-awesome-slider'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 interface SliderProps extends AwesomeSliderProps {
 	titles: string[]

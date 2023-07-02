@@ -1,3 +1,5 @@
+import { months } from '@/assets/constants/const'
+
 export function printCurrency(value?: number | null) {
 	if (!value) {
 		return '---'
@@ -22,6 +24,12 @@ export function printTime(value?: number | null) {
 
 export function printProfessin(value?: string) {
 	return value ? value.replace(/\w*(ы|и$)/i, '') : 'Нет данных'
+}
+
+export function printDate(time: Date | number | string) {
+	const date = new Date(time)
+
+	return `${date.getDay()}-го ${months[date.getMonth()]} ${date.getFullYear()}г.`
 }
 
 export function cut(str: string | null, length: number) {
