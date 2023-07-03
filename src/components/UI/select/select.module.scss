@@ -14,7 +14,7 @@
 		}
 	}
 	& > ul {
-		@apply absolute top-full w-full gap-2 rounded-md bg-neutral-300;
+		@apply absolute top-full w-full gap-2 rounded-md bg-neutral-300 z-50;
 		height: 4px;
 		filter: opacity(0);
 		transition: 0.3s;

@@ -3,8 +3,7 @@ import './main.scss'
 import { Ubuntu } from 'next/font/google'
 import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
-import Leftbar from '@/components/UI/leftbar/leftbar'
-import { KinopoiskDev } from '@/kinopoiskDev'
+/* import Leftbar from '@/components/UI/leftbar/leftbar' */
 
 const ubuntu = Ubuntu({
 	subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
@@ -24,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					<Header />
 				</header>
 				<main>
-					<Leftbar />
+					{/* <Leftbar /> */}
 					{children}
 				</main>
 				<footer>

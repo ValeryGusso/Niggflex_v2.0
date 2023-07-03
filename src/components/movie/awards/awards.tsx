@@ -50,16 +50,22 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 	const [activeAward, setActiveAward] = useState(0)
 	const [activeCategory, setActiveCategory] = useState(0)
 
-	const changeAward = useCallback((i: number) => {
-		setActiveAward(i)
-		setActiveCategory(0)
-	}, [])
+	const changeAward = useCallback(
+		(i: number) => {
+			setActiveAward(i)
+			setActiveCategory(0)
+		},
+		[awards]
+	)
 
-	const changeCategory = useCallback((i: number) => {
-		setActiveCategory(i)
-	}, [])
+	const changeCategory = useCallback(
+		(i: number) => {
+			setActiveCategory(i)
+		},
+		[awards]
+	)
 
-	const { optionsAwards, optionsCategories, award } = useMemo(() => awardsParser(awards), [])
+	const { optionsAwards, optionsCategories, award } = useMemo(() => awardsParser(awards), [awards])
 
 	return (
 		<div className={cls.container}>

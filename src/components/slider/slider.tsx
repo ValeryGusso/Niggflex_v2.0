@@ -7,9 +7,10 @@ import 'react-awesome-slider/dist/styles.css'
 
 interface SliderProps extends AwesomeSliderProps {
 	titles: string[]
+	id?: string
 }
 
-const Slider: FC<SliderProps> = ({ children, className, titles }) => {
+const Slider: FC<SliderProps> = ({ children, className, titles, id }) => {
 	const [active, setActive] = useState(0)
 	const [hovered, setHovered] = useState(0)
 	const disable = useRef(false)
@@ -25,7 +26,7 @@ const Slider: FC<SliderProps> = ({ children, className, titles }) => {
 	}
 
 	return (
-		<div className={className}>
+		<div className={className} id={id}>
 			<ul className={cls.menu}>
 				{titles.map((title, i) => (
 					<li
@@ -46,7 +47,7 @@ const Slider: FC<SliderProps> = ({ children, className, titles }) => {
 				onTransitionStart={() => (disable.current = true)}
 				selected={active}
 				onTransitionRequest={swipe}
-				className={`${cls.redefineBg} h-[60vh]`}
+				className={`${cls.redefineBg} h-[calc(100vh-120px)]`}
 			>
 				{children}
 			</AwesomeSlider>

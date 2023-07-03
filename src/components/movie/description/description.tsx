@@ -95,21 +95,3 @@ const Description: FC<DescriptionProps> = ({ movie }) => {
 }
 
 export default Description
-
-{
-	/* <div>
-<h1>Премьера</h1>
-{movie.premiere.world && (
-	<div className={cls.row}>
-		<p>Мир</p>
-		<p>{new Date(movie.premiere.world).toDateString()}</p>
-	</div>
-)}
-{movie.premiere.russia && (
-	<div className={cls.row}>
-		<p>Россия</p>
-		<p>{new Date(movie.premiere.russia).toDateString()}</p>
-	</div>
-)}
-</div> */
-}

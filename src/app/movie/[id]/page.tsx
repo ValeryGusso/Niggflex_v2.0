@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react'
 import Image from 'next/image'
 import cls from './movie.module.scss'
-import Slider from '@/components/slider/slider'
-import SliderRow from '@/components/sliderRow/sliderRow'
 import { ProfessionKey, Staf } from '@/kinopoiskUnofficial/@types/staff'
 import kinopoiskUnofficial from '@/kinopoiskUnofficial'
 import kinopoiskDev from '@/kinopoiskDev'
+import Slider from '@/components/slider/slider'
+import SliderRow from '@/components/sliderRow/sliderRow'
 import Poster from '@/components/movie/poster/poster'
 import Description from '@/components/movie/description/description'
 import VideoPlayer from '@/components/movie/videoPlayer/videoPlayer'
@@ -17,6 +17,8 @@ import Awards from '@/components/movie/awards/awards'
 import StaffCard from '@/components/sliderRow/cards/staff/staffCard'
 import MovieCard from '@/components/sliderRow/cards/movie/movieCard'
 import Reviews from '@/components/movie/reviews/reviews'
+import Navbar from '@/components/UI/navbar/navbar'
+import { navbarItams } from '@/assets/constants/const'
 
 interface MovieProps {
 	params: {
@@ -78,6 +80,105 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		return result
 	}
 
+	function renderMovies() {
+		if (!similars?.items.length && !sequelsAndPrequels?.length) return null
+
+		return (
+			<>
+				<div id="movies">
+					{similars?.items.length && (
+						<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
+							{similars.items.map(movie => (
+								<MovieCard movie={movie} key={movie.filmId} />
+							))}
+						</SliderRow>
+					)}
+					{sequelsAndPrequels?.length && (
+						<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
+							{sequelsAndPrequels.map(movie => (
+								<MovieCard movie={movie} key={movie.filmId} />
+							))}
+						</SliderRow>
+					)}
+				</div>
+				<div className={cls.break} />
+			</>
+		)
+	}
+
+	function renderStaff() {
+		if (!staff) return null
+
+		return (
+			<div id="staff">
+				<SliderRow title="Актёры" length={actorsList.length}>
+					{actorsList.map((person, i) => (
+						<StaffCard person={person} key={i} />
+					))}
+				</SliderRow>
+				<SliderRow title="Над фильмом работали" length={staffList.length}>
+					{staffList.map((person, i) => (
+						<StaffCard person={person} key={i} />
+					))}
+				</SliderRow>
+				<div className={cls.break} />
+			</div>
+		)
+	}
+
+	function renderSlider() {
+		return (
+			<>
+				<Slider
+					titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']}
+					className={cls.slider}
+					id="slider"
+				>
+					{renderSlide(
+						!!movie?.data?.description,
+						<div className={cls.slider__description}>
+							{movie?.data?.logo.url && (
+								<Image
+									src={movie?.data?.logo.url}
+									alt={`logo ${movie.data.alternativeName}`}
+									width={400}
+									height={100}
+									className="rotate-[-15deg]"
+								/>
+							)}
+							<p>{movie?.data?.description}</p>
+						</div>,
+						'flex justify-center items-center cursor-default'
+					)}
+					{renderSlide(
+						!!movie?.data?.facts?.length,
+						<ul className={cls.slider__facts}>
+							{movie?.data?.facts?.map((fact, i) => (
+								<li key={i}>
+									<Fact fact={fact} />
+								</li>
+							))}
+						</ul>
+					)}
+					{renderSlide(
+						!!images?.data?.docs?.length,
+						<div className="w-[50vw] h-fit">
+							<PhotoGalery items={images?.data?.docs!} total={images?.data?.total!} movieId={params.id} />
+						</div>,
+						'flex justify-center'
+					)}
+					{renderSlide(!!awards?.items.length, <Awards awards={awards?.items!} />, 'flex justify-start')}
+					{renderSlide(
+						!!movie?.data?.videos?.trailers?.length,
+						<VideoPlayer videos={movie?.data?.videos.trailers!} />,
+						'flex justify-center'
+					)}
+				</Slider>
+				<div className={cls.break} />
+			</>
+		)
+	}
+
 	function renderSlide(condition: boolean, element: ReactNode, className?: string) {
 		return (
 			<div className={cls.slider__container + (className ? ' ' + className : '')}>
@@ -93,75 +194,23 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 	}
 
 	return (
-		<div className={cls.movie}>
-			<Backdrop src={movie?.data?.poster.url} alt={movie?.data?.enName} />
-			<div className={cls.logo}>
-				<Poster movie={movie?.data!} />
-				<Description movie={movie?.data!} />
-			</div>
-			<div className={cls.break} />
-			{similars?.items.length && (
-				<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
-					{similars.items.map(movie => (
-						<MovieCard movie={movie} key={movie.filmId} />
-					))}
-				</SliderRow>
-			)}
-			{sequelsAndPrequels?.length && (
-				<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
-					{sequelsAndPrequels.map(movie => (
-						<MovieCard movie={movie} key={movie.filmId} />
-					))}
-				</SliderRow>
-			)}
-			<div className={cls.break} />
-			<Slider titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']} className={cls.slider}>
-				{renderSlide(
-					!!movie?.data?.description,
-					<p className={cls.slider__description}>{movie?.data?.description}</p>,
-					'flex justify-center items-center cursor-default'
-				)}
-				{renderSlide(
-					!!movie?.data?.facts?.length,
-					<ul className={cls.slider__facts}>
-						{movie?.data?.facts?.map((fact, i) => (
-							<li key={i}>
-								<Fact fact={fact} />
-							</li>
-						))}
-					</ul>
-				)}
-				{renderSlide(
-					!!images?.data?.docs?.length,
-					<div className="w-[50vw] h-fit">
-						<PhotoGalery items={images?.data?.docs!} total={images?.data?.total!} movieId={params.id} />
-					</div>,
-					'flex justify-center'
-				)}
-				{renderSlide(!!awards?.items.length, <Awards awards={awards?.items!} />, 'flex justify-start')}
-				{renderSlide(
-					!!movie?.data?.videos?.trailers?.length,
-					<VideoPlayer videos={movie?.data?.videos.trailers!} />,
-					'flex justify-center'
-				)}
-			</Slider>
-			<div className={cls.break} />
-			{staff && (
-				<>
-					<SliderRow title="Актёры" length={actorsList.length}>
-						{actorsList.map((person, i) => (
-							<StaffCard person={person} key={i} />
-						))}
-					</SliderRow>
-					<SliderRow title="Над фильмом работали" length={staffList.length}>
-						{staffList.map((person, i) => (
-							<StaffCard person={person} key={i} />
-						))}
-					</SliderRow>
+		<div className={cls.container}>
+			<Navbar items={navbarItams} />
+			<div className={cls.content}>
+				<div className="flex flex-col">
+					<Backdrop src={movie?.data?.poster.url} alt={movie?.data?.enName} />
+					<div className={cls.logo} id="logo">
+						<Poster movie={movie?.data!} />
+						<Description movie={movie?.data!} />
+					</div>
 					<div className={cls.break} />
-				</>
-			)}
-			{/* {reviews && <Reviews data={reviews} />} */}
+					{renderStaff()}
+					{renderSlider()}
+					{renderMovies()}
+				</div>
+				{reviews && <Reviews data={reviews} />}
+				<div className={cls.break} />
+			</div>
 		</div>
 	)
 }

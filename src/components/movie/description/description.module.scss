@@ -1,5 +1,5 @@
 .container {
-	@apply w-1/2 flex flex-col bg-neutral-300 bg-opacity-10 p-4 rounded-2xl shadow-sm shadow-neutral-300;
+	@apply relative w-1/2 flex flex-col bg-neutral-300 bg-opacity-10 p-4 rounded-2xl shadow-sm shadow-neutral-300;
 }
 .name {
 	@apply flex flex-col gap-2 border-b-2 border-dotted border-neutral-300 border-opacity-50;

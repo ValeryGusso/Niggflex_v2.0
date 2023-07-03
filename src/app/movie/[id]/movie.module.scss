@@ -1,24 +1,34 @@
-.movie {
-	@apply relative w-full flex flex-col justify-center pt-4 pl-20 gap-6;
+.container {
+	@apply relative w-full flex;
+}
+.content {
+	@apply relative w-full flex flex-col gap-6 overflow-x-hidden;
 }
 .logo {
-	@apply w-full flex gap-4 justify-center;
+	@apply w-full min-h-[calc(100vh-88px)] flex gap-4 justify-center;
 }
 .slider {
-	@apply h-[calc(60vh+110px)] flex flex-col gap-4 items-center;
+	// @apply h-[calc(60vh+110px)] flex flex-col gap-4 items-center;
+	@apply h-[100vh] flex flex-col gap-4 items-center;
 }
 .slider__container {
 	@apply w-full h-full px-32;
 }
 .slider__description {
-	@apply mt-6 px-12 text-3xl text-center;
+	@apply relative h-full flex flex-col py-16 items-center justify-around text-rose-500;
+	& > img {
+		filter: drop-shadow(2px 2px 6px rgb(244, 63, 94));
+	}
+	& > p {
+		@apply mt-6 px-12 text-3xl text-center;
+	}
 }
 .slider__facts {
-	@apply h-full flex flex-col gap-6 mt-4 pl-12 pb-12 overflow-auto;
+	@apply h-full flex flex-col gap-6 mt-4 mr-16 pl-12 pr-8 pb-12 overflow-auto;
 }
 .carousel {
 	@apply gap-12 w-full border-none outline-none overflow-hidden select-none cursor-grab;
 }
 .break {
-	@apply w-full h-2 blur-[6px] bg-neutral-300/75;
+	@apply w-full h-2 blur-[10px] my-8 bg-neutral-300/75;
 }

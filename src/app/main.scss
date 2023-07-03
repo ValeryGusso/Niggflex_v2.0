@@ -7,6 +7,9 @@
 * {
 	@apply text-neutral-200 scrollbar scrollbar-thumb-neutral-400 scrollbar-track-neutral-600 scrollbar-w-2;
 }
+html {
+	@apply scroll-smooth;
+}
 
 body {
 	@apply bg-neutral-800;

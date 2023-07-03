@@ -59,7 +59,7 @@ const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
 		thumbnailAlt: img.type,
 		renderItem(e: ReactImageGalleryItem) {
 			return (
-				<div className={`${fullScreen ? 'h-[100vh]' : 'h-[60vh]'}`}>
+				<div className={`${fullScreen ? 'h-[100vh]' : 'h-[calc(100vh-120px)]'}`}>
 					<SafeImage
 						src={e.original}
 						errorImage={defaultImage}

@@ -78,4 +78,5 @@ const Select: FC<SelectProps> = memo(({ options, selected, onChange, width }) =>
 	)
 })
 
+Select.displayName = 'Select'
 export default Select
