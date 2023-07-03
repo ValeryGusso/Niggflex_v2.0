@@ -63,7 +63,7 @@ const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
 					<SafeImage
 						src={e.original}
 						errorImage={defaultImage}
-						alt={e.originalAlt!}
+						alt={e.originalAlt || 'poster'}
 						fill
 						className="object-scale-down"
 					/>
@@ -74,9 +74,9 @@ const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
 			return (
 				<div className={cls.thumb + ' image-gallery-thumbnail-inner'}>
 					<SafeImage
-						src={e.thumbnail!}
+						src={e.thumbnail}
 						errorImage={defaultImage}
-						alt={e.thumbnailAlt!}
+						alt={e.thumbnailAlt || 'poster'}
 						fill
 						className="object-scale-down image-gallery-thumbnail-image"
 					/>

@@ -17,5 +17,5 @@
 	@apply whitespace-nowrap text-ellipsis overflow-hidden;
 }
 .spoiler {
-	@apply absolute top-0 left-1/2 -translate-x-1/2 px-4 bg-neutral-800 cursor-pointer rounded-md;
+	@apply absolute top-0 left-1/2 -translate-x-1/2 px-36 tracking-widest font-black not-italic text-neutral-900 bg-rose-400/75 cursor-pointer rounded-md;
 }

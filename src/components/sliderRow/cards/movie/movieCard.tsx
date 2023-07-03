@@ -22,7 +22,7 @@ const MovieCard: FC<MovieCardProps> = ({ movie }) => {
 					src={movie.posterUrl}
 					blurDataURL={movie.posterUrlPreview || undefined}
 					alt={movie.nameEn || 'poster'}
-					className="object-cover"
+					className="object-cover rounded-md"
 					draggable={false}
 					fill
 				/>

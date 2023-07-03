@@ -16,6 +16,7 @@ import nothingFound from '@/assets/img/nothingFound.png'
 import Awards from '@/components/movie/awards/awards'
 import StaffCard from '@/components/sliderRow/cards/staff/staffCard'
 import MovieCard from '@/components/sliderRow/cards/movie/movieCard'
+import Reviews from '@/components/movie/reviews/reviews'
 
 interface MovieProps {
 	params: {
@@ -84,7 +85,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 					<>{element}</>
 				) : (
 					<div className="w-fit h-52">
-						<Image src={nothingFound} alt="no data" fill className="object-scale-down" />
+						<Image src={nothingFound} alt="no data" fill className="object-scale-down" draggable={false} />
 					</div>
 				)}
 			</div>
@@ -157,8 +158,10 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 							<StaffCard person={person} key={i} />
 						))}
 					</SliderRow>
+					<div className={cls.break} />
 				</>
 			)}
+			{/* {reviews && <Reviews data={reviews} />} */}
 		</div>
 	)
 }

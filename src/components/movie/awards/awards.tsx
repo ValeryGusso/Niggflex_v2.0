@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import Link from 'next/link'
 import cls from './awards.module.scss'
 import { Award } from '@/kinopoiskUnofficial/@types/awards'
@@ -50,12 +50,16 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 	const [activeAward, setActiveAward] = useState(0)
 	const [activeCategory, setActiveCategory] = useState(0)
 
-	const { optionsAwards, optionsCategories, award } = awardsParser(awards)
-
-	function changeAward(i: number) {
+	const changeAward = useCallback((i: number) => {
 		setActiveAward(i)
 		setActiveCategory(0)
-	}
+	}, [])
+
+	const changeCategory = useCallback((i: number) => {
+		setActiveCategory(i)
+	}, [])
+
+	const { optionsAwards, optionsCategories, award } = useMemo(() => awardsParser(awards), [])
 
 	return (
 		<div className={cls.container}>
@@ -79,7 +83,7 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 				<Select
 					options={optionsCategories[activeAward]}
 					selected={activeCategory}
-					onChange={setActiveCategory}
+					onChange={changeCategory}
 					width={350}
 				/>
 				<div className={cls.category__container}>

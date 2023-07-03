@@ -9,17 +9,18 @@ export interface Revievs {
 
 export interface Review {
 	kinopoiskId: number
-	type: Type
+	type: ReviewType
 	date: Date
-	positiveRating: number | null
-	negativeRating: number | null
-	author: string | null
+	positiveRating: number
+	negativeRating: number
+	author: string
 	title: null | string
-	description: string | null
+	description: string
 }
 
-export enum Type {
+export enum ReviewType {
 	negative = 'NEGATIVE',
 	neutral = 'NEUTRAL',
 	positive = 'POSITIVE',
+	unknown = 'UNKNOWN',
 }

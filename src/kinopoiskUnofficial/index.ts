@@ -92,7 +92,7 @@ class KinopoiskUnofficial {
 	}
 
 	async getReviewsByMovieId(id: number, params?: ReviewsParams) {
-		const res = await this.request<Response<Revievs[]>>(`api/v2.2/films/${id}/reviews`, params)
+		const res = await this.request<Response<Revievs>>(`api/v2.2/films/${id}/reviews`, params)
 		return res
 	}
 

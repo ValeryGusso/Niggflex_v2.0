@@ -1,5 +1,5 @@
 'use client'
-import { CSSProperties, FC, useRef } from 'react'
+import { CSSProperties, FC, memo, useRef } from 'react'
 import Image from 'next/image'
 import cls from './select.module.scss'
 import { useToggle } from '@/hooks/useToggle'
@@ -14,11 +14,11 @@ export interface IOption {
 interface SelectProps {
 	options: IOption[]
 	selected: number
-	onChange: (num: number) => void
+	onChange: (value: number) => void
 	width?: number | `${number}`
 }
 
-const Select: FC<SelectProps> = ({ options, selected, onChange, width }) => {
+const Select: FC<SelectProps> = memo(({ options, selected, onChange, width }) => {
 	const [isOpen, isOpenToggle] = useToggle(false)
 	const id = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -76,6 +76,6 @@ const Select: FC<SelectProps> = ({ options, selected, onChange, width }) => {
 			</ul>
 		</div>
 	)
-}
+})
 
 export default Select
