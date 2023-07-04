@@ -19,6 +19,7 @@ import MovieCard from '@/components/sliderRow/cards/movie/movieCard'
 import Reviews from '@/components/movie/reviews/reviews'
 import Navbar from '@/components/UI/navbar/navbar'
 import { navbarItams } from '@/assets/constants/const'
+import IntersectionSpy from '@/hoc/intersectionSpy'
 
 interface MovieProps {
 	params: {
@@ -84,25 +85,22 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		if (!similars?.items.length && !sequelsAndPrequels?.length) return null
 
 		return (
-			<>
-				<div id="movies">
-					{similars?.items.length && (
-						<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
-							{similars.items.map(movie => (
-								<MovieCard movie={movie} key={movie.filmId} />
-							))}
-						</SliderRow>
-					)}
-					{sequelsAndPrequels?.length && (
-						<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
-							{sequelsAndPrequels.map(movie => (
-								<MovieCard movie={movie} key={movie.filmId} />
-							))}
-						</SliderRow>
-					)}
-				</div>
-				<div className={cls.break} />
-			</>
+			<IntersectionSpy id="movies">
+				{similars?.items.length && (
+					<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
+						{similars.items.map(movie => (
+							<MovieCard movie={movie} key={movie.filmId} />
+						))}
+					</SliderRow>
+				)}
+				{sequelsAndPrequels?.length && (
+					<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
+						{sequelsAndPrequels.map(movie => (
+							<MovieCard movie={movie} key={movie.filmId} />
+						))}
+					</SliderRow>
+				)}
+			</IntersectionSpy>
 		)
 	}
 
@@ -110,7 +108,7 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		if (!staff) return null
 
 		return (
-			<div id="staff">
+			<IntersectionSpy id="staff">
 				<SliderRow title="Актёры" length={actorsList.length}>
 					{actorsList.map((person, i) => (
 						<StaffCard person={person} key={i} />
@@ -122,58 +120,56 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 					))}
 				</SliderRow>
 				<div className={cls.break} />
-			</div>
+			</IntersectionSpy>
 		)
 	}
 
 	function renderSlider() {
 		return (
 			<>
-				<Slider
-					titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']}
-					className={cls.slider}
-					id="slider"
-				>
-					{renderSlide(
-						!!movie?.data?.description,
-						<div className={cls.slider__description}>
-							{movie?.data?.logo.url && (
-								<Image
-									src={movie?.data?.logo.url}
-									alt={`logo ${movie.data.alternativeName}`}
-									width={400}
-									height={100}
-									className="rotate-[-15deg]"
-								/>
-							)}
-							<p>{movie?.data?.description}</p>
-						</div>,
-						'flex justify-center items-center cursor-default'
-					)}
-					{renderSlide(
-						!!movie?.data?.facts?.length,
-						<ul className={cls.slider__facts}>
-							{movie?.data?.facts?.map((fact, i) => (
-								<li key={i}>
-									<Fact fact={fact} />
-								</li>
-							))}
-						</ul>
-					)}
-					{renderSlide(
-						!!images?.data?.docs?.length,
-						<div className="w-[50vw] h-fit">
-							<PhotoGalery items={images?.data?.docs!} total={images?.data?.total!} movieId={params.id} />
-						</div>,
-						'flex justify-center'
-					)}
-					{renderSlide(!!awards?.items.length, <Awards awards={awards?.items!} />, 'flex justify-start')}
-					{renderSlide(
-						!!movie?.data?.videos?.trailers?.length,
-						<VideoPlayer videos={movie?.data?.videos.trailers!} />,
-						'flex justify-center'
-					)}
-				</Slider>
+				<IntersectionSpy id="slider">
+					<Slider titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']} className={cls.slider}>
+						{renderSlide(
+							!!movie?.data?.description,
+							<div className={cls.slider__description}>
+								{movie?.data?.logo.url && (
+									<Image
+										src={movie?.data?.logo.url}
+										alt={`logo ${movie.data.alternativeName}`}
+										width={400}
+										height={100}
+										className="rotate-[-15deg]"
+									/>
+								)}
+								<p>{movie?.data?.description}</p>
+							</div>,
+							'flex justify-center items-center cursor-default'
+						)}
+						{renderSlide(
+							!!movie?.data?.facts?.length,
+							<ul className={cls.slider__facts}>
+								{movie?.data?.facts?.map((fact, i) => (
+									<li key={i}>
+										<Fact fact={fact} />
+									</li>
+								))}
+							</ul>
+						)}
+						{renderSlide(
+							!!images?.data?.docs?.length,
+							<div className="w-[50vw] h-fit">
+								<PhotoGalery items={images?.data?.docs!} total={images?.data?.total!} movieId={params.id} />
+							</div>,
+							'flex justify-center'
+						)}
+						{renderSlide(!!awards?.items.length, <Awards awards={awards?.items!} />, 'flex justify-start')}
+						{renderSlide(
+							!!movie?.data?.videos?.trailers?.length,
+							<VideoPlayer videos={movie?.data?.videos.trailers!} />,
+							'flex justify-center'
+						)}
+					</Slider>
+				</IntersectionSpy>
 				<div className={cls.break} />
 			</>
 		)
@@ -197,19 +193,24 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		<div className={cls.container}>
 			<Navbar items={navbarItams} />
 			<div className={cls.content}>
-				<div className="flex flex-col">
+				<div className="relative flex flex-col">
 					<Backdrop src={movie?.data?.poster.url} alt={movie?.data?.enName} />
-					<div className={cls.logo} id="logo">
-						<Poster movie={movie?.data!} />
-						<Description movie={movie?.data!} />
-					</div>
+					<IntersectionSpy>
+						<div className={cls.logo}>
+							<Poster movie={movie?.data!} />
+							<Description movie={movie?.data!} />
+						</div>
+					</IntersectionSpy>
 					<div className={cls.break} />
 					{renderStaff()}
 					{renderSlider()}
 					{renderMovies()}
 				</div>
-				{reviews && <Reviews data={reviews} />}
-				<div className={cls.break} />
+				{reviews && (
+					<IntersectionSpy id="reviews">
+						<Reviews data={reviews} />
+					</IntersectionSpy>
+				)}
 			</div>
 		</div>
 	)

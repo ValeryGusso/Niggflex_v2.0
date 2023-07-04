@@ -15,4 +15,8 @@
 			@apply invert;
 		}
 	}
+	& .highlight {
+		@apply absolute -top-6 right-0 w-1 h-[100px] bg-orange-400 transition blur-sm;
+		transform: translateY(var(--y));
+	}
 }

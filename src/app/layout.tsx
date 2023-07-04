@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="ru">
 			<body className={ubuntu.className}>
-				<header>
+				<header id="header">
 					<Header />
 				</header>
 				<main>

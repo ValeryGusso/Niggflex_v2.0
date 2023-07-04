@@ -64,7 +64,7 @@ const Reviews: FC<RevievsProps> = ({ data }) => {
 	}, [])
 
 	return (
-		<div className={cls.container} id="reviews">
+		<div className={cls.container}>
 			<div className="flex">
 				<h1></h1>
 				<Select options={options} selected={type} onChange={changeType} />
