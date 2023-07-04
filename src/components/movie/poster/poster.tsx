@@ -5,9 +5,10 @@ import { FullMovie } from '@/kinopoiskDev/autotypes'
 import kpLogo from '@/assets/img/kp_logo.png'
 import imdbLogo from '@/assets/img/imdb_logo.png'
 import tmdbLogo from '@/assets/img/tmdb_logo.png'
+import { MovieDtoV13 } from '@openmoviedb/kinopoiskdev_client'
 
 interface PosterProps {
-	movie: FullMovie
+	movie: MovieDtoV13
 }
 
 const Poster: FC<PosterProps> = ({ movie }) => {
@@ -15,7 +16,7 @@ const Poster: FC<PosterProps> = ({ movie }) => {
 		<div className={cls.container}>
 			<div className={cls.poster}>
 				<Image
-					src={movie.poster.url || ''}
+					src={movie.poster?.url || ''}
 					alt={movie.enName || 'movie?'}
 					width={667}
 					height={1000}
@@ -26,7 +27,7 @@ const Poster: FC<PosterProps> = ({ movie }) => {
 
 			<div className={cls.rating}>
 				<div className={cls.rating__row}>
-					{movie.rating.kp && (
+					{movie.rating?.kp && (
 						<div className={cls.rating__item}>
 							<Image src={kpLogo} alt="kinopois logo" draggable={false} className={cls.rating__image} />
 							<div className={cls.rating__description}>
@@ -35,7 +36,7 @@ const Poster: FC<PosterProps> = ({ movie }) => {
 							</div>
 						</div>
 					)}
-					{movie.rating.imdb && (
+					{movie.rating?.imdb && (
 						<div className={cls.rating__item}>
 							<Image src={imdbLogo} alt="imdb logo" draggable={false} className={cls.rating__image + ' scale-150'} />
 							<div className={cls.rating__description}>
@@ -44,7 +45,7 @@ const Poster: FC<PosterProps> = ({ movie }) => {
 							</div>
 						</div>
 					)}
-					{movie.rating.tmdb && (
+					{movie.rating?.tmdb && (
 						<div className={cls.rating__item}>
 							<Image src={tmdbLogo} alt="tmdb logo" draggable={false} className={cls.rating__image} />
 							<div className={cls.rating__description}>
@@ -54,7 +55,7 @@ const Poster: FC<PosterProps> = ({ movie }) => {
 						</div>
 					)}
 				</div>
-				{(movie.rating.filmCritics || movie.rating.russianFilmCritics) && (
+				{(movie.rating?.filmCritics || movie.rating?.russianFilmCritics) && (
 					<div className={cls.rating__row}>
 						<div className={cls.rating__description}>
 							<p>Критики (Мир / Россия)</p>

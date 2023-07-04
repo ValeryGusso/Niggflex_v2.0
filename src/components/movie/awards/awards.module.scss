@@ -21,6 +21,9 @@
 }
 .category__item {
 	@apply flex gap-2 py-4 px-6 bg-neutral-900/30 rounded-md shadow-sm shadow-neutral-300;
+	& > p {
+		@apply text-xl;
+	}
 }
 .person {
 	@apply flex flex-col gap-2;

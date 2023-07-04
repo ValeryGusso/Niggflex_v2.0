@@ -4,8 +4,9 @@ import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery'
 import cls from './photoGalery.module.scss'
 import defaultImage from '@/assets/img/noimage.png'
 import SafeImage from '@/components/UI/safeImage/safeImage'
-import { Image } from '@/kinopoiskDev/@types/images'
+// import { Image } from '@/kinopoiskDev/@types/images'
 import { useToggle } from '@/hooks/useToggle'
+import { Image } from '@openmoviedb/kinopoiskdev_client'
 
 interface PhotoGaleryProps {
 	items: Image[]
@@ -33,7 +34,6 @@ const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
 			pageStatus.current.curIndex = i
 
 			if (i > photo.length - 5 && pageStatus.current.page * 30 < total && !pageStatus.current.loading) {
-				console.log('start loading')
 				pageStatus.current.loading = true
 				const res = await fetch('/api/movie/updateImage', {
 					method: 'POST',
@@ -52,8 +52,8 @@ const PhotoGalery: FC<PhotoGaleryProps> = ({ items, total, movieId }) => {
 		[photo]
 	)
 
-	const data = photo.map(img => ({
-		original: img.url,
+	const data: ReactImageGalleryItem[] = photo.map(img => ({
+		original: img.url || '',
 		thumbnail: img.previewUrl,
 		originalAlt: img.type,
 		thumbnailAlt: img.type,

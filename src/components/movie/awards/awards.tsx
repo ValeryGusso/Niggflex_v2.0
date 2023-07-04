@@ -1,6 +1,7 @@
 'use client'
 import { FC, useCallback, useMemo, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import cls from './awards.module.scss'
 import { Award } from '@/kinopoiskUnofficial/@types/awards'
 import SafeImage from '@/components/UI/safeImage/safeImage'
@@ -9,6 +10,7 @@ import defaultAward from '@/assets/img/default_award.png'
 
 interface AwardsProps {
 	awards: Award[]
+	logo?: string | null
 }
 
 interface AwardsList {
@@ -46,7 +48,7 @@ function awardsParser(awards: Award[]) {
 	return { optionsAwards, optionsCategories, award: renderList }
 }
 
-const Awards: FC<AwardsProps> = ({ awards }) => {
+const Awards: FC<AwardsProps> = ({ awards, logo }) => {
 	const [activeAward, setActiveAward] = useState(0)
 	const [activeCategory, setActiveCategory] = useState(0)
 
@@ -93,29 +95,42 @@ const Awards: FC<AwardsProps> = ({ awards }) => {
 					width={350}
 				/>
 				<div className={cls.category__container}>
-					{award[activeAward].items[activeCategory].persons?.map(person => (
-						<div className={cls.category__item} key={person.kinopoiskId}>
-							<div>
-								<SafeImage
-									src={person.posterUrl}
-									alt={person.nameEn || 'photo'}
-									width={90}
-									height={120}
-									className="rounded-md"
-									draggable={false}
-								/>
-							</div>
-							<div className={cls.person}>
-								<Link href="#" className={cls.person__title}>
-									{person.nameRu || person.nameEn}
-								</Link>
-								<h4 className={cls.person__prof}>{person.profession}</h4>
-								<p>{`${award[activeAward].items[activeCategory].win ? 'Победитель' : 'Номинант'} (${
-									award[activeAward].items[activeCategory].year
-								}) в категории "${award[activeAward].items[activeCategory].nominationName.toLocaleLowerCase()}"`}</p>
-							</div>
+					{award[activeAward].items[activeCategory].persons.length ? (
+						<>
+							{award[activeAward].items[activeCategory].persons?.map(person => (
+								<div className={cls.category__item} key={person.kinopoiskId}>
+									<div>
+										<SafeImage
+											src={person.posterUrl}
+											alt={person.nameEn || 'photo'}
+											width={90}
+											height={120}
+											className="rounded-md"
+											draggable={false}
+										/>
+									</div>
+									<div className={cls.person}>
+										<Link href="#" className={cls.person__title}>
+											{person.nameRu || person.nameEn}
+										</Link>
+										<h4 className={cls.person__prof}>{person.profession}</h4>
+										<p>{`${award[activeAward].items[activeCategory].win ? 'Победитель' : 'Номинант'} (${
+											award[activeAward].items[activeCategory].year
+										}) в категории "${award[activeAward].items[
+											activeCategory
+										].nominationName.toLocaleLowerCase()}"`}</p>
+									</div>
+								</div>
+							))}
+						</>
+					) : (
+						<div className={cls.category__item + ' flex-col items-center'}>
+							<p>{`${award[activeAward].items[activeCategory].win ? 'Победитель' : 'Номинант'} (${
+								award[activeAward].items[activeCategory].year
+							}) в категории "${award[activeAward].items[activeCategory].nominationName.toLocaleLowerCase()}"`}</p>
+							{logo && <Image src={logo} alt="logo" width={400} height={100} />}
 						</div>
-					))}
+					)}
 				</div>
 			</div>
 		</div>

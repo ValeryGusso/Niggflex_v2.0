@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import cls from './description.module.scss'
-import { FullMovie } from '@/kinopoiskDev/autotypes'
 import { cut, printCurrency, printDate, printTime } from '@/utils/print'
+import { MovieDtoV13 } from '@openmoviedb/kinopoiskdev_client'
 
 interface DescriptionProps {
-	movie: FullMovie
+	movie: MovieDtoV13
 }
 
 const Description: FC<DescriptionProps> = ({ movie }) => {
@@ -25,11 +25,19 @@ const Description: FC<DescriptionProps> = ({ movie }) => {
 				</div>
 				<div className={cls.row}>
 					<p>Страна</p>
-					<p>{movie.countries?.map((country, i) => country.name + (i !== movie.countries.length! - 1 ? ', ' : ''))}</p>
+					<p>
+						{movie.countries?.length
+							? movie.countries.map((country, i) => country.name + (i !== movie.countries?.length! - 1 ? ', ' : ''))
+							: 'Нет данных'}
+					</p>
 				</div>
 				<div className={cls.row}>
 					<p>Жанр</p>
-					<p>{movie.genres?.map((country, i) => country.name + (i !== movie.genres.length! - 1 ? ', ' : ''))}</p>
+					<p>
+						{movie.genres?.length
+							? movie.genres?.map((country, i) => country.name + (i !== movie.genres?.length! - 1 ? ', ' : ''))
+							: 'Нет данных'}
+					</p>
 				</div>
 				<div className={cls.row}>
 					<p>Возрастной рейтинг</p>
@@ -43,7 +51,7 @@ const Description: FC<DescriptionProps> = ({ movie }) => {
 					<p>Слоган</p>
 					<p>{movie.slogan || 'Нет данных'}</p>
 				</div>
-				{(movie.premiere.world || movie.premiere.russia) && (
+				{(movie.premiere?.world || movie.premiere?.russia) && (
 					<>
 						<h2>Премьера</h2>
 						{movie.premiere.world && (
@@ -86,7 +94,7 @@ const Description: FC<DescriptionProps> = ({ movie }) => {
 					<p>Бюджет</p>
 					<p>
 						{printCurrency(movie.budget?.value)}
-						{movie.budget.currency}
+						{movie.budget?.currency}
 					</p>
 				</div>
 			</div>

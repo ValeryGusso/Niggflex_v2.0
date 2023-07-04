@@ -32,7 +32,7 @@ export function printDate(time: Date | number | string) {
 	return `${date.getDay()}-го ${months[date.getMonth()]} ${date.getFullYear()}г.`
 }
 
-export function cut(str: string | null, length: number) {
+export function cut(str: string | null | undefined, length: number) {
 	if (!str) {
 		return 'Нет данных'
 	}

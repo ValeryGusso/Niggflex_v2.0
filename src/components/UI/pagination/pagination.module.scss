@@ -1,0 +1,9 @@
+.box {
+	@apply w-12 h-12 flex items-center justify-center rounded-md border-2 select-none;
+}
+.button {
+	@apply box text-xl cursor-pointer;
+}
+.active {
+	@apply border-2 border-sky-400;
+}

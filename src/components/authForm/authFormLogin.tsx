@@ -1,5 +1,5 @@
 'use client'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import cls from './authForm.module.scss'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import ValidatedInput from '../UI/input/validatedInput'

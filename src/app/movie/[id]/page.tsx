@@ -3,7 +3,8 @@ import Image from 'next/image'
 import cls from './movie.module.scss'
 import { ProfessionKey, Staf } from '@/kinopoiskUnofficial/@types/staff'
 import kinopoiskUnofficial from '@/kinopoiskUnofficial'
-import kinopoiskDev from '@/kinopoiskDev'
+// import kinopoiskDev from '@/kinopoiskDev'
+import kinopoiskDev from '@/kp'
 import Slider from '@/components/slider/slider'
 import SliderRow from '@/components/sliderRow/sliderRow'
 import Poster from '@/components/movie/poster/poster'
@@ -29,7 +30,7 @@ interface MovieProps {
 }
 
 export async function generateMetadata({ params }: MovieProps) {
-	const movie = await kinopoiskDev.getMovieById(params.id)
+	const movie = await kinopoiskDev.movie.getById(params.id)
 
 	return {
 		title: movie?.data?.name + ' | Niggfex' || movie?.data?.enName + ' | Niggfex' || 'Niggflex',
@@ -38,17 +39,19 @@ export async function generateMetadata({ params }: MovieProps) {
 
 const Movie: FC<MovieProps> = async ({ params }) => {
 	const results = await Promise.allSettled([
-		kinopoiskDev.getMovieById(params.id),
+		// kinopoiskDev.getMovieById(params.id),
+		kinopoiskDev.movie.getById(params.id),
 		kinopoiskUnofficial.getStaffByMovieId(params.id),
 		kinopoiskUnofficial.getFactsByMovieId(params.id),
 		kinopoiskUnofficial.getAwardsByMovieId(params.id),
 		kinopoiskUnofficial.getReviewsByMovieId(params.id, { page: 5, opder: 'USER_NEGATIVE_RATING_ASC' }),
-		kinopoiskDev.getImagesByMovieId(params.id),
+		// kinopoiskDev.getImagesByMovieId(params.id),
+		kinopoiskDev.image.getByFilters({ movieId: params.id.toString(), limit: '30' }),
 		kinopoiskUnofficial.getSimilarsByMovieId(params.id),
 		kinopoiskUnofficial.getSequelsAndPrequelsByMovieId(params.id),
 	])
 
-	const movie = results[0].status === 'fulfilled' ? results[0].value : null
+	const movie = results[0].status === 'fulfilled' && results[0].value.statusCode === 200 ? results[0].value.data : null
 	const staff = results[1].status === 'fulfilled' && results[1].value.success ? results[1].value.data : null
 	const facts = results[2].status === 'fulfilled' && results[2].value.success ? results[2].value.data : null
 	const awards = results[3].status === 'fulfilled' && results[3].value.success ? results[3].value.data : null
@@ -87,14 +90,14 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 		return (
 			<IntersectionSpy id="movies">
 				{similars?.items.length && (
-					<SliderRow title={'Фильмы, похожие на "' + movie?.data?.name + '"'} length={similars.items.length}>
+					<SliderRow title={'Фильмы, похожие на "' + movie?.name + '"'} length={similars.items.length}>
 						{similars.items.map(movie => (
 							<MovieCard movie={movie} key={movie.filmId} />
 						))}
 					</SliderRow>
 				)}
 				{sequelsAndPrequels?.length && (
-					<SliderRow title={'Сиквелы и преквелы к "' + movie?.data?.name + '"'} length={sequelsAndPrequels.length}>
+					<SliderRow title={'Сиквелы и преквелы к "' + movie?.name + '"'} length={sequelsAndPrequels.length}>
 						{sequelsAndPrequels.map(movie => (
 							<MovieCard movie={movie} key={movie.filmId} />
 						))}
@@ -130,25 +133,25 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 				<IntersectionSpy id="slider">
 					<Slider titles={['Описание', 'Интересные факты', 'Гелерея', 'Награды', 'Трейлеры']} className={cls.slider}>
 						{renderSlide(
-							!!movie?.data?.description,
+							!!movie?.description,
 							<div className={cls.slider__description}>
-								{movie?.data?.logo.url && (
+								{movie?.logo?.url && (
 									<Image
-										src={movie?.data?.logo.url}
-										alt={`logo ${movie.data.alternativeName}`}
+										src={movie.logo.url}
+										alt={`logo ${movie.alternativeName}`}
 										width={400}
 										height={100}
 										className="rotate-[-15deg]"
 									/>
 								)}
-								<p>{movie?.data?.description}</p>
+								<p>{movie?.description}</p>
 							</div>,
 							'flex justify-center items-center cursor-default'
 						)}
 						{renderSlide(
-							!!movie?.data?.facts?.length,
+							!!movie?.facts?.length,
 							<ul className={cls.slider__facts}>
-								{movie?.data?.facts?.map((fact, i) => (
+								{movie?.facts?.map((fact, i) => (
 									<li key={i}>
 										<Fact fact={fact} />
 									</li>
@@ -162,10 +165,14 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 							</div>,
 							'flex justify-center'
 						)}
-						{renderSlide(!!awards?.items.length, <Awards awards={awards?.items!} />, 'flex justify-start')}
 						{renderSlide(
-							!!movie?.data?.videos?.trailers?.length,
-							<VideoPlayer videos={movie?.data?.videos.trailers!} />,
+							!!awards?.items.length,
+							<Awards awards={awards?.items!} logo={movie?.logo?.url} />,
+							'flex justify-start'
+						)}
+						{renderSlide(
+							!!movie?.videos?.trailers?.length,
+							<VideoPlayer videos={movie?.videos?.trailers!} />,
 							'flex justify-center'
 						)}
 					</Slider>
@@ -194,11 +201,11 @@ const Movie: FC<MovieProps> = async ({ params }) => {
 			<Navbar items={navbarItams} />
 			<div className={cls.content}>
 				<div className="relative flex flex-col">
-					<Backdrop src={movie?.data?.poster.url} alt={movie?.data?.enName} />
+					<Backdrop src={movie?.poster?.url} alt={movie?.enName} />
 					<IntersectionSpy>
 						<div className={cls.logo}>
-							<Poster movie={movie?.data!} />
-							<Description movie={movie?.data!} />
+							<Poster movie={movie!} />
+							<Description movie={movie!} />
 						</div>
 					</IntersectionSpy>
 					<div className={cls.break} />

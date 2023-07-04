@@ -32,7 +32,7 @@ const IntersectionSpy: FC<IntersectionSpyProps> = ({ children, id }) => {
 						}
 					}
 				},
-				{ threshold: 0.95 }
+				{ threshold: 0.75 }
 			)
 
 			observer.observe(div.current)

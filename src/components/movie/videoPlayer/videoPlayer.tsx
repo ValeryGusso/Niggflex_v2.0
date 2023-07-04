@@ -1,7 +1,7 @@
 'use client'
 import { FC, useEffect, useRef, useState } from 'react'
 import cls from './videoPlayer.module.scss'
-import { Video } from '@/kinopoiskDev/autotypes'
+import { Video } from '@openmoviedb/kinopoiskdev_client'
 import { getYoutubeVideoSrc } from '@/utils/get'
 import Select, { IOption } from '@/components/UI/select/select'
 
