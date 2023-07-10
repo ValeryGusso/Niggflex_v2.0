@@ -1,0 +1,13 @@
+.container {
+	@apply relative bg-neutral-500 overflow-hidden;
+	width: var(--size);
+	height: var(--size);
+	clip-path: polygon(50% 0%, 65% 45%, 100% 45%, 70% 70%, 77% 100%, 50% 75%, 20% 100%, 30% 70%, 0 45%, 35% 45%);
+	&::after {
+		content: '';
+		@apply absolute top-0 -left-full bg-orange-300;
+		width: var(--size);
+		height: var(--size);
+		transform: translateX(calc(var(--size) * var(--fill)));
+	}
+}

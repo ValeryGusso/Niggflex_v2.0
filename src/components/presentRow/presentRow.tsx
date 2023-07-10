@@ -7,16 +7,17 @@ import defaultImg from '@/assets/img/noimage.png'
 
 interface PresentRowProps {
 	movies: ShortMovie[]
+	direction: 'left' | 'right'
 }
 
-const PresentRow: FC<PresentRowProps> = ({ movies }) => {
+const PresentRow: FC<PresentRowProps> = ({ movies, direction }) => {
 	const renderData = [...movies, ...movies]
 	const ulRef = useRef<HTMLUListElement>(null)
 
 	return (
 		<ul ref={ulRef} className={cls.container}>
 			{renderData.map((movie, i) => (
-				<li key={i}>
+				<li key={i} className="select-none" style={{ animationDirection: direction === 'left' ? 'normal' : 'reverse' }}>
 					<SafeImage
 						src={movie.poster.previewUrl!}
 						errorImage={defaultImg}

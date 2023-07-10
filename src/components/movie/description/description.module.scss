@@ -2,7 +2,7 @@
 	@apply relative w-1/2 flex flex-col bg-neutral-300 bg-opacity-10 p-4 rounded-2xl shadow-sm shadow-neutral-300;
 }
 .name {
-	@apply flex flex-col gap-2 border-b-2 border-dotted border-neutral-300 border-opacity-50;
+	@apply flex flex-col gap-2 pb-2 border-b-2 border-solid border-neutral-300 border-opacity-25;
 	& > h1 {
 		@apply text-4xl font-black;
 	}
@@ -13,17 +13,17 @@
 .description {
 	@apply w-fit flex flex-col;
 	& > h1 {
-		@apply text-3xl italic font-black mt-2 mb-4;
+		@apply text-3xl font-black mt-2 mb-4;
 	}
 	& > h2 {
-		@apply text-2xl italic font-black mt-2 mb-4;
+		@apply text-2xl font-black mt-2 mb-4;
 	}
 	& > div {
 		@apply flex gap-4;
 	}
 }
 .row {
-	@apply w-full py-1 pr-2 border-b-2 border-dotted border-neutral-300 border-opacity-25;
+	@apply w-full py-1 pr-2 border-b-2 border-solid border-neutral-300 border-opacity-20;
 	& > p:nth-child(1) {
 		@apply w-44 font-medium;
 	}

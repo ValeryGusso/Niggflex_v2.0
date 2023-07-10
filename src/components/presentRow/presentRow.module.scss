@@ -1,12 +1,22 @@
 .container {
-	@apply flex items-center justify-center gap-2 rounded-xl;
+	@apply w-[100vw] flex items-center gap-2 rounded-xl overflow-hidden;
 	& li {
 		@apply relative w-32 flex-none rounded-xl overflow-hidden;
+		animation: move 180s linear infinite;
 		& img {
 			@apply w-fit h-fit rounded-lg transition;
 			&:hover {
-				@apply scale-125;
+				@apply scale-125 -translate-y-4;
 			}
 		}
+	}
+}
+@keyframes move {
+	0% {
+		transform: translateX(0px);
+	}
+
+	100% {
+		transform: translateX(-2036px);
 	}
 }
